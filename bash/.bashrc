@@ -126,7 +126,6 @@ fi
 # start tmux on every shell login
 # [[ $TERM != "screen" ]] && exec tmux
 
-
 alias bashconfig="vim ~/.bashrc"
 alias gomicroverse="cd ~/Desktop/rails/microverse"
 alias godesign="cd ~/Desktop/ruby/OOP\ Design/"
@@ -141,13 +140,16 @@ alias elastic="/tmp/elasticsearch-7.5.2/bin/elasticsearch"
 alias python='/usr/bin/python3.7'
 alias gogems='cd /home/muhammad/Desktop/rails/self/ruby'
 alias goengines='cd /home/muhammad/Desktop/rails/self/ruby/engines'
-alias opengem="EDITOR='nvim' gem open $1"
 alias nvimconfig="nvim ~/.config/nvim/init.vim"
 alias tb="taskbook"
 
 # screensaver
 alias stops="xscreensaver-command -exit"
 alias runs="xscreensaver"
+
+# copy/paste to clipboard
+alias fcopy='xclip -selection clipboard'
+alias fpaste='xclip -selection clipboard -o'
 
 # Recording
 alias record="pactl load-module module-echo-cancel source_name=noechosource sink_name=noechosink"
@@ -158,8 +160,6 @@ alias y="sudo modprobe btusb"
 
 alias swapoff="sudo swapoff -a"
 PATH=~/.local/bin/:$PATH
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 
 # If not running interactively, don't do anything
 case $- in
@@ -197,16 +197,16 @@ export SCM_CHECK=true
 # Set Xterm/screen/Tmux title with only a short hostname.
 # Uncomment this (or set SHORT_HOSTNAME to something else),
 # Will otherwise fall back on $HOSTNAME.
-#export SHORT_HOSTNAME=$(hostname -s)
+export SHORT_HOSTNAME=$(hostname -s)
 
 # Set Xterm/screen/Tmux title with only a short username.
 # Uncomment this (or set SHORT_USER to something else),
 # Will otherwise fall back on $USER.
-#export SHORT_USER=${USER:0:8}
+export SHORT_USER=${USER:0:8}
 
 # Set Xterm/screen/Tmux title with shortened command and directory.
 # Uncomment this to set.
-#export SHORT_TERM_LINE=true
+export SHORT_TERM_LINE=true
 
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/djl/vcprompt
@@ -214,7 +214,7 @@ export SCM_CHECK=true
 
 # (Advanced): Uncomment this to make Bash-it reload itself automatically
 # after enabling or disabling aliases, plugins, and completions.
-# export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
+export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
 # Uncomment this to make Bash-it create alias reload.
 # export BASH_IT_RELOAD_LEGACY=1
@@ -223,5 +223,9 @@ export SCM_CHECK=true
 source "$BASH_IT"/bash_it.sh
 export NPM_CONFIG_PREFIX=~/.npm-global
 export PATH=$PATH:~/.npm-global/bin
-source "/etc/profile.d/rvm.sh"
-export PATH=/home/muhammad/Desktop/ruby/study/IO/rcat/bin:/home/muhammad/.local/bin:/home/muhammad/.local/bin/:/home/muhammad/.local/bin:/home/muhammad/.local/bin/:/home/muhammad/.local/bin:/home/muhammad/.local/bin/:/home/muhammad/.local/bin:/home/muhammad/.rvm/gems/ruby-2.6.3/bin:/home/muhammad/.rvm/gems/ruby-2.6.3@global/bin:/usr/share/rvm/rubies/ruby-2.6.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/share/rvm/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/home/muhammad/.npm-global/bin:/usr/local/go/bin:/usr/local/go/bin:/home/muhammad/.npm-global/bin:/usr/local/go/bin:/usr/local/go/bin:/home/muhammad/.npm-global/bin:/usr/local/go/bin
+export PATH=/home/muhammad/Desktop/ruby/study/IO/rcat/bin:/home/muhammad/.local/bin:/home/muhammad/.local/bin/$PATH:/home/muhammad/.local/bin:/home/muhammad/.local/bin/:/home/muhammad/.local/bin:/home/muhammad/.local/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/usr/local/go/bin:/usr/local/go/bin:/home/muhammad/.npm-global/bin:/usr/local/go/bin:/usr/local/go/bin:/home/muhammad/.npm-global/bin:/usr/local/go/bin:/usr/local/go/bin:/home/muhammad/.npm-global/bin:/usr/local/go/bin
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
