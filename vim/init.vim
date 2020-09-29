@@ -8,7 +8,8 @@ Plug 'sheerun/vim-polyglot'
 " themes
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'patstockwell/vim-monokai-tasty'
+Plug 'edersonferreira/dalton-vim'
+Plug 'ayu-theme/ayu-vim'
 
 " nerdtree
 Plug 'scrooloose/nerdtree'
@@ -83,6 +84,9 @@ Plug 'vim-ruby/vim-ruby'
 " vim test runner
 Plug 'janko/vim-test'
 
+" ruby ri documentation
+Plug 'danchoi/ri.vim'
+
 " ruby select code block
 Plug 'nelstrom/vim-textobj-rubyblock'
 
@@ -92,7 +96,7 @@ Plug 'tpope/vim-repeat'
 " text object
 Plug 'kana/vim-textobj-user'
 
-" javacript
+" javascript
 Plug 'pangloss/vim-javascript'
 
 " use same window navigation mappings in both vim and tmux
@@ -130,7 +134,7 @@ set cursorline
 set splitright
 set splitbelow
 
-" rebalance windows on vim resize (userful when opening new tmux panes)
+" rebalance windows on vim resize (useful when opening new tmux panes)
 autocmd VimResized * :wincmd =
 
 " make vim use the global clipboard
@@ -138,15 +142,15 @@ set clipboard=unnamedplus
 
 " white spaces
 set list
-set listchars=tab:->,trail:∙,eol:¬,space:∙
+set listchars=tab:→\ ,trail:·,eol:¬,space:·
 
 " use 0 instead of ^ for beginning of line
 nmap 0 ^
 
 " tabs use
 set tabstop=2
-set shiftwidth=2
 set expandtab
+set shiftwidth=2
 
 " map \q to :q
 nnoremap <leader>q :q<CR>
@@ -221,7 +225,6 @@ endif
 syntax enable
 " set term=screen-256color
 set t_Co=256
-" colorscheme onedark
 colorscheme onedark
 
 " nerdtree configuration
@@ -268,7 +271,7 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 
-">>>>>>> Completion
+" Completion
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
@@ -330,7 +333,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 " Remap keys for applying codeAction to the current line.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Introduce function text object
 xmap if <Plug>(coc-funcobj-i)
@@ -403,6 +406,10 @@ nmap <silent> <leader>c :Econtroller<CR>
 
 " restart server
 nmap <leader>rs :Rails restart<CR>
+
+" rspec syntax highlight outside of rails projects
+autocmd BufRead *_spec.rb syn keyword rubyRspec describe context it specify it_should_behave_like before after setup subject its shared_examples_for shared_context let
+highlight def link rubyRspec Function
 
 " test.vim configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
