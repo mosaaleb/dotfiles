@@ -194,12 +194,6 @@ map bp :bp<CR>
 " close buffer without closing window
 map <silent> bd :bp<bar>sp<bar>bn<bar>bd<CR>
 
-" " move lines up and down more conventiently
-" nnoremap <silent> K :move -2<CR>==
-" nnoremap <silent> J :move +1<CR>==
-" xnoremap <silent> K :'<,'>move-2<CR>gv=gv
-" xnoremap <silent> J :'<,'>move'>+<CR>gv=gv
-
 " make Y yank till the end of the line
 nnoremap Y y$
 
@@ -421,13 +415,14 @@ nmap <silent> <leader>t    :TestNearest<CR>
 
 " Ultisnips
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" disable ultisnips mappings (because it conflicts with coc default mappings)
+" disable ultisnips mappings (conflicts with coc default mappings)
 let g:UltiSnipsExpandTrigger = "<nop>"
 
 " vim gitgutter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight DiffAdd guifg=#71a95a guibg=none
+highlight DiffAdd    guifg=#71a95a guibg=none
 highlight DiffDelete guifg=#eb7070 guibg=none
+highlight DiffChange guifg=#E5C07B guibg=none gui=NONE
 
 " vim tmux navigator configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -452,10 +447,5 @@ nnoremap <leader>sc     :VtrSendCommandToRunner
 nnoremap <leader>sl     :VtrSendLinesToRunner<CR>
 vnoremap <leader>sl     :VtrSendLinesToRunner<CR>
 nnoremap <leader>pry    :VtrOpenRunner {'orientation': 'v', 'percentage': 30, 'cmd': 'pry'}<CR>
-
-" hot reload html css
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" reload css, js after leaving insert mode
-
 
 " END OF FILE
