@@ -8,8 +8,8 @@ Plug 'sheerun/vim-polyglot'
 " themes
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'edersonferreira/dalton-vim'
 Plug 'ayu-theme/ayu-vim'
+Plug 'ts-26a/vim-darkspace'
 
 " nerdtree
 Plug 'scrooloose/nerdtree'
@@ -217,9 +217,15 @@ if (has("termguicolors"))
   set termguicolors
 endif
 syntax enable
-" set term=screen-256color
 set t_Co=256
-colorscheme onedark
+colorscheme darkspace
+" colorscheme base16-black-metal-mayhem
+
+" Custom highlighting
+highlight NonText guifg=Grey19
+highlight VertSplit guifg=Gray12
+highlight WhiteSpace guifg=Grey19
+highlight ColorColumn guibg=#181a1e
 
 " nerdtree configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -251,7 +257,8 @@ let g:NERDTreeFileExtensionHighlightFullName = 1
 
 " airline configurations
 """"""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme = 'base16_spacemacs'
+" let g:airline_theme = 'base16_spacemacs'
+let g:airline_theme='darkspace'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
