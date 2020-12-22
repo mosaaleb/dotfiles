@@ -196,7 +196,7 @@ nnoremap Y y$
 set nrformats+=alpha
 
 " toggle search highlight
-noremap <silent> yoh :noh<CR>
+nnoremap <silent> yoh :noh<CR>
 
 " define tag files
 set tags=tags;/
@@ -249,10 +249,6 @@ highlight EndOfBuffer guifg=Gray14
 " vim-ruby settings
 let ruby_operators = 1
 let ruby_pseudo_operators = 1
-
-" vim dirvish configurations
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 
 " airline configurations
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -311,7 +307,7 @@ function! s:show_documentation()
 endfunction
 
 " format file
-noremap <silent> <leader>ff :call CocAction('format')<CR>
+nnoremap <silent> <leader>ff :call CocAction('format')<CR>
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -373,16 +369,16 @@ let g:auto_save_silent = 1
 " Ruby & Ruby on Rails configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim rails and ruby (rake.vim) alternate (test) file
-noremap <silent> <leader>a :A<CR>
+nnoremap <silent> <leader>a :A<CR>
 
 " jumping betweem MVC files (model/view/controller) files
-noremap <silent> <leader>v :Eview<CR>
-noremap <silent> <leader>m :Emodel<CR>
-noremap <silent> <leader>h :Ehelper<CR>
-noremap <silent> <leader>c :Econtroller<CR>
+nnoremap <silent> <leader>v :Eview<CR>
+nnoremap <silent> <leader>m :Emodel<CR>
+nnoremap <silent> <leader>h :Ehelper<CR>
+nnoremap <silent> <leader>c :Econtroller<CR>
 
 " restart server
-nmap <leader>rs :Rails restart<CR>
+noremap <leader>rs :Rails restart<CR>
 
 " rspec syntax highlight outside of rails projects
 augroup RSpecHighlight
@@ -395,10 +391,10 @@ augroup END
 " test.vim configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let test#strategy = 'vtr'
-nmap <silent> <leader>l    :TestLast<CR>
-nmap <silent> <leader>tf   :TestFile<CR>
-nmap <silent> <leader>s    :TestSuite<CR>
-nmap <silent> <leader>t    :TestNearest<CR>
+nnoremap <silent> <leader>l    :TestLast<CR>
+nnoremap <silent> <leader>tf   :TestFile<CR>
+nnoremap <silent> <leader>s    :TestSuite<CR>
+nnoremap <silent> <leader>t    :TestNearest<CR>
 
 " Ultisnips
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
