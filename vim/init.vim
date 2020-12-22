@@ -19,10 +19,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug '907th/vim-auto-save'
 
 " language server support
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
 
 " snippets
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
 
 " obsession: automatically update sessions
 Plug 'tpope/vim-obsession'
@@ -34,7 +35,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 
 " support for ruby projects (rake, lib, ....)
-Plug 'tpope/vim-projectionist' | Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
+  Plug 'tpope/vim-rake'
 
 " fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
@@ -82,14 +84,12 @@ Plug 'janko/vim-test'
 " ruby ri documentation
 Plug 'danchoi/ri.vim'
 
-" ruby select code block
-Plug 'nelstrom/vim-textobj-rubyblock'
-
 " repeat vim
 Plug 'tpope/vim-repeat'
 
 " text object
 Plug 'kana/vim-textobj-user'
+  Plug 'nelstrom/vim-textobj-rubyblock'
 
 " javascript
 " Plug 'pangloss/vim-javascript'
@@ -200,6 +200,13 @@ noremap <silent> yoh :noh<CR>
 
 " define tag files
 set tags=tags;/
+
+" load coc.nvim after vim started
+augroup LoadCocNvim
+  autocmd!
+  autocmd VimEnter * call plug#load('coc.nvim')
+                     \| autocmd! LoadCocNvim
+augroup END
 
 " Neovim only valid configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -326,7 +333,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 " Remap keys for applying codeAction to the current line.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Introduce function text object
 xmap if <Plug>(coc-funcobj-i)
@@ -343,24 +350,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" " Mappings using CoCList:
-" " Show all diagnostics.
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions.
-" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands.
-" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document.
-" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols.
-" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list.
-" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " ctrlp finder configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -387,10 +376,10 @@ let g:auto_save_silent = 1
 noremap <silent> <leader>a :A<CR>
 
 " jumping betweem MVC files (model/view/controller) files
-nmap <silent> <leader>v :Eview<CR>
-nmap <silent> <leader>m :Emodel<CR>
-nmap <silent> <leader>h :Ehelper<CR>
-nmap <silent> <leader>c :Econtroller<CR>
+noremap <silent> <leader>v :Eview<CR>
+noremap <silent> <leader>m :Emodel<CR>
+noremap <silent> <leader>h :Ehelper<CR>
+noremap <silent> <leader>c :Econtroller<CR>
 
 " restart server
 nmap <leader>rs :Rails restart<CR>
