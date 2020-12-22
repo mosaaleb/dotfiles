@@ -5,17 +5,11 @@ call plug#begin("~/.vim/plugged")
 " vim language pack
 Plug 'sheerun/vim-polyglot'
 
-" themes
-Plug 'joshdick/onedark.vim'
+" color scheme
 Plug 'chriskempson/base16-vim'
-Plug 'ayu-theme/ayu-vim'
-Plug 'ts-26a/vim-darkspace'
 
-" nerdtree
-Plug 'scrooloose/nerdtree'
+" devicons
 Plug 'ryanoasis/vim-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " airline
 Plug 'vim-airline/vim-airline'
@@ -51,8 +45,9 @@ Plug 'wakatime/vim-wakatime'
 " commentary
 Plug 'tpope/vim-commentary'
 
-" git
+" git & github
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 " vim bundler (useful for including ctags from installed gems)
 Plug 'tpope/vim-bundler'
@@ -97,16 +92,13 @@ Plug 'tpope/vim-repeat'
 Plug 'kana/vim-textobj-user'
 
 " javascript
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
 
 " use same window navigation mappings in both vim and tmux
 Plug 'christoomey/vim-tmux-navigator'
 
 " introduce vim to tmux (second commands from vim to tmux)
 Plug 'christoomey/vim-tmux-runner'
-
-" markdown preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 
 " live html, css and javascript
 Plug 'turbio/bracey.vim'
@@ -116,9 +108,9 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIGURATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " General configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set noshowmode
 set relativenumber number
 set numberwidth=6
 syntax on
@@ -183,10 +175,10 @@ vnoremap <Right> <Nop>
 " nnoremap <Right> <c-w>l
 
 " resize vertically and horizontally
-nnoremap <silent> <C-Up> :resize +5<CR>
-nnoremap <silent> <C-Down> :resize -5<CR>
+nnoremap <silent> <C-Up>    :resize +5<CR>
+nnoremap <silent> <C-Down>  :resize -5<CR>
 nnoremap <silent> <C-Right> :vertical resize +5<CR>
-nnoremap <silent> <C-Left> :vertical resize -5<CR>
+nnoremap <silent> <C-Left>  :vertical resize -5<CR>
 
 " buffer switching and deleting
 map bn :bn<CR>
@@ -201,7 +193,7 @@ nnoremap Y y$
 set nrformats+=alpha
 
 " toggle search highlight
-noremap <silent> yoh :set invhlsearch<CR>
+noremap <silent> yoh :noh<CR>
 
 " define tag files
 set tags=tags;/
@@ -216,50 +208,47 @@ set inccommand=split
 if (has("termguicolors"))
   set termguicolors
 endif
+
 syntax enable
 set t_Co=256
-colorscheme darkspace
-" colorscheme base16-black-metal-mayhem
+colorscheme base16-default-dark
 
 " Custom highlighting
-highlight NonText guifg=Grey19
-highlight VertSplit guifg=Gray12
-highlight WhiteSpace guifg=Grey19
-highlight ColorColumn guibg=#181a1e
-
-" nerdtree configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDTreeIgnore      = ['node_modules', '.git']
-let g:NERDTreeMinimalUI   = 1 
-let g:NERDTreeDirArrows   = 1
-let g:NERDTreeQuitOnOpen  = 3
-let g:NERDTreeShowHidden  = 1
-let g:NERDTreeStatusline  = ''
+" same as (Normal) colorscheme bg color (synIDattr(hlID("Normal"), "bg")
+highlight Normal     guibg=Black
+highlight LineNr     guibg=Black
+highlight VertSplit  guibg=Black guifg=Grey14
+highlight SignColumn guibg=Black
 
-" auto open nerdtree with no file specified
-function! StartUp()
-  if 0 == argc()
-    NERDTree
-  endif
-endfunction
-au VimEnter * call StartUp() | execute 'normal R'
+" vertical and horizontal cursors lines
+highlight CursorLine   guibg=Grey5
+highlight ColorColumn  guibg=Grey5
+highlight CursorLineNr guibg=Grey5
 
-" Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+" gitgutter
+highlight DiffAdd    guifg=#71a95a guibg=none
+highlight DiffDelete guifg=#eb7070 guibg=none
+highlight DiffChange guifg=#E5C07B guibg=none
 
-" nerdtree syntax highlighting (plugin)
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
+" non text colors
+highlight NonText     guifg=Grey14
+highlight WhiteSpace  guifg=Grey14
+highlight EndOfBuffer guifg=Gray14
 
-" auto refresh root on focus
-" autocmd BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p
+" vim-ruby settings
+let ruby_operators = 1
+let ruby_pseudo_operators = 1
+
+" vim dirvish configurations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " airline configurations
 """"""""""""""""""""""""""""""""""""""""""""""""
-" let g:airline_theme = 'base16_spacemacs'
-let g:airline_theme='darkspace'
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme                        ='lucius'
+let g:airline#extensions#tagbar#enabled    = 0
+let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " COC configurations
@@ -425,12 +414,6 @@ nmap <silent> <leader>t    :TestNearest<CR>
 " disable ultisnips mappings (conflicts with coc default mappings)
 let g:UltiSnipsExpandTrigger = "<nop>"
 
-" vim gitgutter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight DiffAdd    guifg=#71a95a guibg=none
-highlight DiffDelete guifg=#eb7070 guibg=none
-highlight DiffChange guifg=#E5C07B guibg=none gui=NONE
-
 " vim tmux navigator configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:tmux_navigator_no_mappings = 1
@@ -454,5 +437,9 @@ nnoremap <leader>sc     :VtrSendCommandToRunner
 nnoremap <leader>sl     :VtrSendLinesToRunner<CR>
 vnoremap <leader>sl     :VtrSendLinesToRunner<CR>
 nnoremap <leader>pry    :VtrOpenRunner {'orientation': 'v', 'percentage': 30, 'cmd': 'pry'}<CR>
+
+let g:vtr_filetype_runner_overrides = {
+        \ 'php': 'php {file}'
+        \ }
 
 " END OF FILE
