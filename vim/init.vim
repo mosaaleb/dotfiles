@@ -127,7 +127,10 @@ set splitright
 set splitbelow
 
 " rebalance windows on vim resize (useful when opening new tmux panes)
-autocmd VimResized * :wincmd =
+augroup RebalanceWindows
+  autocmd!
+  autocmd VimResized * :wincmd =
+augroup END
 
 " make vim use the global clipboard
 set clipboard=unnamedplus
@@ -148,7 +151,7 @@ set shiftwidth=2
 nnoremap <leader>q :q<CR>
 
 " go to nvim configurations
-nnoremap <leader>cv :vsp ~/.config/nvim/init.vim<CR>
+nnoremap <leader>cv :e ~/.config/nvim/init.vim<CR>
 " reload nvim configurations
 nnoremap <leader>rv :source ~/.config/nvim/init.vim<CR>
 
@@ -331,11 +334,6 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" " Use <TAB> for selections ranges.
-" " NOTE: Requires 'textDocument/selectionRange' support from the language server.
-" " coc-tsserver, coc-python are the examples of servers that support it.
-" nmap <silent> <TAB> <Plug>(coc-range-select)
-" xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -383,7 +381,7 @@ let g:ctrlp_use_caching = 0
 let g:auto_save = 1
 let g:auto_save_silent = 1
 
-" Rails configurations
+" Ruby & Ruby on Rails configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim rails and ruby (rake.vim) alternate (test) file
 noremap <silent> <leader>a :A<CR>
@@ -398,8 +396,12 @@ nmap <silent> <leader>c :Econtroller<CR>
 nmap <leader>rs :Rails restart<CR>
 
 " rspec syntax highlight outside of rails projects
-autocmd BufRead *_spec.rb syn keyword rubyRspec describe context it specify it_should_behave_like before after setup subject its shared_examples_for shared_context let
-highlight def link rubyRspec Function
+augroup RSpecHighlight
+  autocmd!
+
+  autocmd BufRead *_spec.rb syn keyword rubyRspec describe context it specify it_should_behave_like before after setup subject its shared_examples_for shared_context let
+  highlight def link rubyRspec Function
+augroup END
 
 " test.vim configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
