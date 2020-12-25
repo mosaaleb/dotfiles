@@ -126,6 +126,9 @@ set cursorline
 set splitright
 set splitbelow
 
+" enable built in matchit
+runtime macros/matchit.vim
+
 " rebalance windows on vim resize (useful when opening new tmux panes)
 augroup RebalanceWindows
   autocmd!
@@ -208,6 +211,14 @@ augroup LoadCocNvim
                      \| autocmd! LoadCocNvim
 augroup END
 
+" netrw configurations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner       = 0
+let g:netrw_winsize      = 25
+" let g:netrw_keepdir      = 0
+" let g:netrw_liststyle    = 3
+let g:netrw_fastbrowse   = 0
+let g:netrw_browse_split = 0
 " Neovim only valid configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " interactive substitute feedback
@@ -327,9 +338,9 @@ xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current line.
-nmap <leader>ac  <Plug>(coc-codeaction)
+" nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Introduce function text object
 xmap if <Plug>(coc-funcobj-i)
