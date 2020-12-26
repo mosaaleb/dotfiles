@@ -1,6 +1,8 @@
 " PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin("~/.vim/plugged")
+" profiling
+Plug 'hyiltiz/vim-plugins-profile'
 
 " vim language pack
 Plug 'sheerun/vim-polyglot'
@@ -125,6 +127,9 @@ set cursorline
 " split to right, and to bottom
 set splitright
 set splitbelow
+
+" disable automatic comment leader insertion (:help fo-table)
+set formatoptions-=ro
 
 " enable built in matchit
 runtime macros/matchit.vim
