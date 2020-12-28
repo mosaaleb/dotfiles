@@ -217,7 +217,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup NetrwConfig
   autocmd!
-  autocmd FileType netrw setl bufhidden=delete
+  autocmd FileType netrw setl bufhidden=wipe
   autocmd FileType netrw set nolist
   autocmd FileType netrw call SetMappings()
   " must be defined after SetMappings
