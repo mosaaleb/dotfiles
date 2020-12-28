@@ -1,8 +1,6 @@
 " PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin("~/.vim/plugged")
-" profiling
-Plug 'hyiltiz/vim-plugins-profile'
 
 " vim language pack
 Plug 'sheerun/vim-polyglot'
@@ -110,6 +108,7 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CONFIGURATIONS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " General configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set noshowmode
@@ -128,8 +127,9 @@ set cursorline
 set splitright
 set splitbelow
 
-" disable automatic comment leader insertion (:help fo-table)
-set formatoptions-=ro
+" disable automatic comment leader insertion in command and insert modes
+" (:help fo-table)
+autocmd FileType * setlocal formatoptions-=r formatoptions-=o
 
 " enable built in matchit
 runtime macros/matchit.vim
@@ -200,9 +200,6 @@ map <silent> bd :bp<bar>sp<bar>bn<bar>bd<CR>
 " make Y yank till the end of the line
 nnoremap Y y$
 
-" append alphabet to nrformats (useful in incrementing a letter)
-set nrformats+=alpha
-
 " toggle search highlight
 nnoremap <silent> yoh :noh<CR>
 
@@ -218,12 +215,46 @@ augroup END
 
 " netrw configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup NetrwConfig
+  autocmd!
+  autocmd FileType netrw setl bufhidden=delete
+  autocmd FileType netrw set nolist
+  autocmd FileType netrw call SetMappings()
+  " must be defined after SetMappings
+  autocmd FileType netrw call ResetMappings()
+augroup END
+
+" toggle netrw
+let g:NetrwIsOpen=0
+
+function! ToggleNetrw()
+  if g:NetrwIsOpen
+    silent Rexplore
+    let g:NetrwIsOpen=0
+  else
+    let g:NetrwIsOpen=1
+    silent Explore .
+  endif
+endfunction
+
+map <silent> <C-E> :call ToggleVExplorer()<CR>
+function! ResetMappings()
+  " remove - mappings (used to toggle netrw)
+  nunmap <buffer> -
+endfunction
+
+function! SetMappings()
+  " up directory
+  nnoremap <buffer> - U
+endfunction
+
 let g:netrw_banner       = 0
-let g:netrw_winsize      = 25
-" let g:netrw_keepdir      = 0
-" let g:netrw_liststyle    = 3
+let g:netrw_winsize      = 30
 let g:netrw_fastbrowse   = 0
-let g:netrw_browse_split = 0
+
+" press - for toggling netrw
+nnoremap <silent> - :call ToggleNetrw()<CR>
+
 " Neovim only valid configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " interactive substitute feedback
