@@ -283,11 +283,6 @@ highlight CursorLine   guibg=Grey5
 highlight ColorColumn  guibg=Grey5
 highlight CursorLineNr guibg=Grey5
 
-" gitgutter
-highlight DiffAdd    guifg=#71a95a guibg=none
-highlight DiffDelete guifg=#eb7070 guibg=none
-highlight DiffChange guifg=#E5C07B guibg=none
-
 " non text colors
 highlight NonText     guifg=Grey14
 highlight WhiteSpace  guifg=Grey14
@@ -312,7 +307,6 @@ set nowritebackup
 set cmdheight=2
 set updatetime=300
 set shortmess+=c
-set signcolumn=yes
 
 " Completion
 " Use <c-space> to trigger completion.
