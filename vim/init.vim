@@ -476,4 +476,19 @@ let g:vtr_filetype_runner_overrides = {
         \ 'php': 'php {file}'
         \ }
 
+" gitgutter configurations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+highlight GitGutterAdd     guifg=#71a95a guibg=none
+highlight GitGutterDelete  guifg=#eb7070 guibg=none
+highlight GitGutterChange  guifg=#E5C07B guibg=none
+
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+
+nmap <leader>sh <Plug>(GitGutterStageHunk)
+nmap <leader>uh <Plug>(GitGutterUndoHunk)
+nmap <leader>ph <Plug>(GitGutterPreviewHunk)
+
+let g:gitgutter_preview_win_floating = 0
+
 " END OF FILE
