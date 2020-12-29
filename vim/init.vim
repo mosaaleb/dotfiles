@@ -47,9 +47,10 @@ Plug 'wakatime/vim-wakatime'
 " commentary
 Plug 'tpope/vim-commentary'
 
-" git & github
+" git & github & gigutter
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 
 " vim bundler (useful for including ctags from installed gems)
 Plug 'tpope/vim-bundler'
@@ -249,7 +250,6 @@ function! SetMappings()
 endfunction
 
 let g:netrw_banner       = 0
-let g:netrw_winsize      = 30
 let g:netrw_fastbrowse   = 0
 
 " press - for toggling netrw
