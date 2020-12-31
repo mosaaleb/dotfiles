@@ -270,6 +270,14 @@ syntax enable
 set t_Co=256
 colorscheme base16-default-dark
 
+" Folding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup remember_folds
+  autocmd!
+  au BufWinLeave ?* mkview 1
+  au BufWinEnter ?* silent! loadview 1
+augroup END
+
 " Custom highlighting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " same as (Normal) colorscheme bg color (synIDattr(hlID("Normal"), "bg")
