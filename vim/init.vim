@@ -2,6 +2,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin("~/.vim/plugged")
 
+" dirvish & dirvish git
+Plug 'justinmk/vim-dirvish'
+Plug 'kristijanhusak/vim-dirvish-git'
+
 " vim language pack
 Plug 'sheerun/vim-polyglot'
 
@@ -112,7 +116,10 @@ call plug#end()
 
 " General configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set noshowmode
+" disable netrw
+let loaded_netrwPlugin = 1
+
+set signcolumn=yes
 set relativenumber number
 set numberwidth=6
 syntax on
@@ -252,13 +259,14 @@ endfunction
 let g:netrw_banner       = 0
 let g:netrw_fastbrowse   = 0
 
-" press - for toggling netrw
-nnoremap <silent> - :call ToggleNetrw()<CR>
-
-" Neovim only valid configurations
+" dirvish configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" interactive substitute feedback
-set inccommand=split
+let dirvish_mode = ':sort ,^.*/,'
+autocmd FileType dirvish setl nolist
+" call dirvish#add_icon_fn({p -> WebDevIconsGetFileTypeSymbol(p)})
+
+" dirvish git
+let g:dirvish_git_show_ignored = 1
 
 " theme configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
