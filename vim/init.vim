@@ -12,13 +12,6 @@ Plug 'sheerun/vim-polyglot'
 " color scheme
 Plug 'chriskempson/base16-vim'
 
-" devicons
-Plug 'ryanoasis/vim-devicons'
-
-" airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
 " autosave
 Plug '907th/vim-auto-save'
 
@@ -107,6 +100,9 @@ Plug 'christoomey/vim-tmux-runner'
 
 " live html, css and javascript
 Plug 'turbio/bracey.vim'
+
+" devicons
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
