@@ -9,6 +9,5 @@
   "html.filetypes": ["html", "handlebars", "htmldjango", "erb", "eruby"],
   "html.autoClosingTags": true,
 
-  "yank.highlight.duration": 1000,
-  "git.enableGutters": true
+  "yank.highlight.duration": 1000
 }
