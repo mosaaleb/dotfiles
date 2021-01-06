@@ -304,12 +304,85 @@ highlight EndOfBuffer guifg=Gray14
 let ruby_operators = 1
 let ruby_pseudo_operators = 1
 
-" airline configurations
-""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme                        ='lucius'
-let g:airline#extensions#tagbar#enabled    = 0
-let g:airline#extensions#tabline#enabled   = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" status & buffer line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set noshowmode
+set laststatus=2
+
+function! CurrentFile()
+  return expand(fnamemodify(expand('%h'), ':t'))
+endfunction
+
+function! CurrentWorkingDirectory()
+  return fnamemodify(getcwd(), ':t')
+endfunction
+
+function! ReadOnly()
+  if &readonly || !&modifiable
+    return '  '
+  else
+    return ''
+endfunction
+
+function! GitBranchIcon()
+  let git = fugitive#head()
+  if git != ''
+    return ''
+  else
+    return ''
+endfunction
+
+function! GitInfo()
+  let git = fugitive#head()
+  if git != ''
+    return fugitive#head()
+  else
+    return ''
+endfunction
+
+hi User1   guibg=Black guifg=#eea040 gui=bold
+hi User2   guibg=Black guifg=#bf5fff
+hi User3   guibg=Black guifg=#bf5fff gui=bold
+hi User4   guibg=Black guifg=#ff0000 gui=bold
+
+hi StatusLine    guibg=Black
+set statusline=
+
+let g:currentmode={
+    \ 'n'      : 'NORMAL ',
+    \ 'v'      : 'VISUAL ',
+    \ 'V'      : 'V·LINE ',
+    \ "\<C-V>" : 'V·Block ',
+    \ 's'      : 'SELECT ',
+    \ 'S'      : 'S·LINE ',
+    \ "\<C-S>" : 'S·BLOCK ',
+    \ 'i'      : 'INSERT ',
+    \ 'R'      : 'REPLACE ',
+    \ 'Rv'     : 'V·REPLACE ',
+    \ 'c'      : 'COMMAND '
+    \}
+
+" left side [mode | gitinfo | relative file path]
+set statusline+=%3*%{g:currentmode[mode()]}
+
+set statusline+=%1*\ %5{GitBranchIcon()}%*
+set statusline+=%2*\ %{GitInfo()}\ %*
+
+set statusline+=%1*\ %5{WebDevIconsGetFileTypeSymbol()}%*
+set statusline+=%2*\ %f%*
+
+" right side [lines number | percentage | working directory]
+set statusline+=%=
+set statusline+=%4*%-5{ReadOnly()}%*
+
+set statusline+=%1*\ 🗋\ %*
+set statusline+=%2*%-5L%*
+
+set statusline+=%1*\ ％%*
+set statusline+=%2*%-5p%*
+
+set statusline+=%1*\ 🖿%*
+set statusline+=%3*\ %{CurrentWorkingDirectory()}%*
 
 " COC configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
