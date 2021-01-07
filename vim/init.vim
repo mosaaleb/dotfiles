@@ -310,10 +310,10 @@ let ruby_pseudo_operators = 1
 " buftabline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:buftabline_separators = 1
-highlight BufTabLineFill    guibg=Grey5
-highlight BufTabLineActive  guibg=Grey5 guifg=#bf5fff
-highlight BufTabLineHidden  guibg=Grey5 guifg=#696969
-highlight BufTabLineCurrent guibg=Grey5 guifg=#bf5fff
+highlight BufTabLineFill    guibg=#0c0c0c
+highlight BufTabLineActive  guibg=#3c3c3c guifg=#eca55c
+highlight BufTabLineHidden  guibg=#202020 guifg=#909090
+highlight BufTabLineCurrent guibg=#3c3c3c guifg=#eca55c
 
 " statusline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
