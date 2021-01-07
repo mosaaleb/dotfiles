@@ -6,6 +6,9 @@ call plug#begin("~/.vim/plugged")
 Plug 'justinmk/vim-dirvish'
 Plug 'kristijanhusak/vim-dirvish-git'
 
+" bufferline
+Plug 'ap/vim-buftabline'
+
 " vim language pack
 Plug 'sheerun/vim-polyglot'
 
@@ -304,7 +307,15 @@ highlight EndOfBuffer guifg=Gray14
 let ruby_operators = 1
 let ruby_pseudo_operators = 1
 
-" status & buffer line
+" buftabline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:buftabline_separators = 1
+highlight BufTabLineFill    guibg=Grey5
+highlight BufTabLineActive  guibg=Grey5 guifg=#bf5fff
+highlight BufTabLineHidden  guibg=Grey5 guifg=#696969
+highlight BufTabLineCurrent guibg=Grey5 guifg=#bf5fff
+
+" statusline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set noshowmode
 set laststatus=2
