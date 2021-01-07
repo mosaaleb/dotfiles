@@ -163,12 +163,12 @@ set expandtab
 set shiftwidth=2
 
 " map \q to :q
-nnoremap <leader>q :q<CR>
+nnoremap <silent><leader>q :q<CR>
 
 " go to nvim configurations
-nnoremap <leader>cv :e ~/.config/nvim/init.vim<CR>
+nnoremap <silent><leader>cv :e ~/.config/nvim/init.vim<CR>
 " reload nvim configurations
-nnoremap <leader>rv :source ~/.config/nvim/init.vim<CR>
+nnoremap <silent><leader>rv :source ~/.config/nvim/init.vim<CR>
 
 " disable arrow keys
 cnoremap <Up>    <Nop>
