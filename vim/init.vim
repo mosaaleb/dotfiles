@@ -351,12 +351,12 @@ function! GitInfo()
     return ''
 endfunction
 
-hi User1   guibg=Black guifg=#eea040 gui=bold
-hi User2   guibg=Black guifg=#bf5fff
-hi User3   guibg=Black guifg=#bf5fff gui=bold
-hi User4   guibg=Black guifg=#ff0000 gui=bold
+hi User1   guibg=#0c0c0c guifg=#eca55c
+hi User2   guibg=#0c0c0c guifg=#eca55c gui=bold
+hi User3   guibg=#0c0c0c guifg=#ff0000 gui=bold
 
-hi StatusLine    guibg=Black
+hi StatusLine    guibg=#0c0c0c
+hi StatusLineNC  guibg=#0c0c0c
 set statusline=
 
 let g:currentmode={
@@ -374,26 +374,26 @@ let g:currentmode={
     \}
 
 " left side [mode | gitinfo | relative file path]
-set statusline+=%3*%{g:currentmode[mode()]}
+set statusline+=%2*%{g:currentmode[mode()]}
 
 set statusline+=%1*\ %5{GitBranchIcon()}%*
-set statusline+=%2*\ %{GitInfo()}\ %*
+set statusline+=%1*\ %{GitInfo()}\ %*
 
 set statusline+=%1*\ %5{WebDevIconsGetFileTypeSymbol()}%*
-set statusline+=%2*\ %f%*
+set statusline+=%1*\ %f%*
 
 " right side [lines number | percentage | working directory]
 set statusline+=%=
-set statusline+=%4*%-5{ReadOnly()}%*
+set statusline+=%3*%-5{ReadOnly()}%*
 
 set statusline+=%1*\ 🗋\ %*
-set statusline+=%2*%-5L%*
+set statusline+=%1*%-5L%*
 
 set statusline+=%1*\ ％%*
-set statusline+=%2*%-5p%*
+set statusline+=%1*%-5p%*
 
 set statusline+=%1*\ 🖿%*
-set statusline+=%3*\ %{CurrentWorkingDirectory()}%*
+set statusline+=%2*\ %{CurrentWorkingDirectory()}%*%<
 
 " COC configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
