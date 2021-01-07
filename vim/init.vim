@@ -129,6 +129,7 @@ set colorcolumn=80
 set ignorecase smartcase
 set nowrap
 set cursorline
+set inccommand=split
 
 " split to right, and to bottom
 set splitright
@@ -220,44 +221,6 @@ augroup LoadCocNvim
                      \| autocmd! LoadCocNvim
 augroup END
 
-" netrw configurations
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup NetrwConfig
-  autocmd!
-  autocmd FileType netrw setl bufhidden=wipe
-  autocmd FileType netrw set nolist
-  autocmd FileType netrw call SetMappings()
-  " must be defined after SetMappings
-  autocmd FileType netrw call ResetMappings()
-augroup END
-
-" toggle netrw
-let g:NetrwIsOpen=0
-
-function! ToggleNetrw()
-  if g:NetrwIsOpen
-    silent Rexplore
-    let g:NetrwIsOpen=0
-  else
-    let g:NetrwIsOpen=1
-    silent Explore .
-  endif
-endfunction
-
-map <silent> <C-E> :call ToggleVExplorer()<CR>
-function! ResetMappings()
-  " remove - mappings (used to toggle netrw)
-  nunmap <buffer> -
-endfunction
-
-function! SetMappings()
-  " up directory
-  nnoremap <buffer> - U
-endfunction
-
-let g:netrw_banner       = 0
-let g:netrw_fastbrowse   = 0
-
 " dirvish configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let dirvish_mode = ':sort ,^.*/,'
@@ -294,9 +257,9 @@ highlight VertSplit  guibg=Black guifg=Grey14
 highlight SignColumn guibg=Black
 
 " vertical and horizontal cursors lines
-highlight CursorLine   guibg=Grey5
-highlight ColorColumn  guibg=Grey5
-highlight CursorLineNr guibg=Grey5
+highlight CursorLine   guibg=#0c0c0c
+highlight ColorColumn  guibg=#0c0c0c
+highlight CursorLineNr guibg=#0c0c0c
 
 " non text colors
 highlight NonText     guifg=Grey14
