@@ -93,7 +93,7 @@ Plug 'kana/vim-textobj-user'
   Plug 'nelstrom/vim-textobj-rubyblock'
 
 " javascript
-" Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
 " use same window navigation mappings in both vim and tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -531,9 +531,10 @@ let g:vtr_filetype_runner_overrides = {
 
 " gitgutter configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight GitGutterAdd     guifg=#71a95a guibg=none
-highlight GitGutterDelete  guifg=#eb7070 guibg=none
-highlight GitGutterChange  guifg=#E5C07B guibg=none
+highlight GitGutterAdd          guifg=#71a95a guibg=none
+highlight GitGutterDelete       guifg=#eb7070 guibg=none
+highlight GitGutterChange       guifg=#E5C07B guibg=none
+highlight GitGutterChangeDelete guifg=#E5C07B guibg=none
 
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
