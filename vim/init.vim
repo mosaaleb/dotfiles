@@ -47,7 +47,8 @@ Plug 'wakatime/vim-wakatime'
 " commentary
 Plug 'tpope/vim-commentary'
 
-" git & github & gigutter
+" gitlens & git & github & gigutter
+Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
