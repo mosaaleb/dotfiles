@@ -273,7 +273,6 @@ let ruby_pseudo_operators = 1
 
 " buftabline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:buftabline_separators = 1
 highlight BufTabLineFill    guibg=#0c0c0c
 highlight BufTabLineActive  guibg=#3c3c3c guifg=#eca55c
 highlight BufTabLineHidden  guibg=#202020 guifg=#909090
