@@ -2,6 +2,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin("~/.vim/plugged")
 
+" rest client
+Plug 'diepm/vim-rest-console'
+
 " dirvish & dirvish git
 Plug 'justinmk/vim-dirvish'
 Plug 'kristijanhusak/vim-dirvish-git'
@@ -544,5 +547,12 @@ nmap <leader>uh <Plug>(GitGutterUndoHunk)
 nmap <leader>ph <Plug>(GitGutterPreviewHunk)
 
 let g:gitgutter_preview_win_floating = 0
+
+" vim rest console
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vrc_curl_opts = {
+      \ '-sS' : '',
+      \ '-i': '',
+      \}
 
 " END OF FILE
