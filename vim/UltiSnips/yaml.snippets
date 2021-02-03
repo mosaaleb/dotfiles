@@ -1,0 +1,90 @@
+snippet rubocop-plugin
+require:
+  - rubocop-minitest
+  - rubocop-rake
+
+AllCops:
+  Exclude:
+    - "bin/*"
+    - "Guardfile"
+    - "Rakefile"
+    - "${1:gemname}.gemspec"
+
+  DisplayCopNames: true
+
+Layout/LineLength:
+  Max: 80
+  IgnoredPatterns: ['^\s*#']
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Safe: true
+  SafeAutoCorrect: true
+endsnippet
+
+snippet rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  Exclude:
+    - "bin/*"
+
+  DisplayCopNames: true
+
+Layout/LineLength:
+  Max: 80
+  IgnoredPatterns: ['^\s*#']
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Safe: true
+  SafeAutoCorrect: true
+
+endsnippet
