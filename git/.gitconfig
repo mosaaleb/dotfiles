@@ -1,0 +1,11 @@
+[color]
+	ui = true
+[user]
+	name = muhammad ebeid
+	email = muhammed.ebeid@gmail.com
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	graph = log --all --decorate --oneline --graph
+[core]
+	autocrlf = false
+	excludesfile = /home/muhammad/.gitignore
