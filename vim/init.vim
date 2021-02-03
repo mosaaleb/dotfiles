@@ -23,6 +23,7 @@ Plug '907th/vim-auto-save'
 
 " language server support
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
+Plug 'dense-analysis/ale'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -576,5 +577,12 @@ let g:vrc_curl_opts = {
       \ '-sS' : '',
       \ '-i': '',
       \}
+
+" ale configurations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\   'yaml': ['spectral'],
+\}
 
 " END OF FILE
