@@ -226,6 +226,9 @@ augroup LoadCocNvim
                      \| autocmd! LoadCocNvim
 augroup END
 
+" inpsect path option in a more readable format
+command! Path :echo join(split(&path, ","), "\n")
+
 " dirvish configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let dirvish_mode = ':sort ,^.*/,'
