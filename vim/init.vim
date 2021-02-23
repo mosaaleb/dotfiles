@@ -255,8 +255,11 @@ colorscheme base16-default-dark
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup remember_folds
   autocmd!
-  au BufWinLeave ?* mkview 1
-  au BufWinEnter ?* silent! loadview 1
+  autocmd FileType qf setlocal nolist
+  autocmd FileType qf setlocal norelativenumber
+  autocmd FileType qf setlocal number
+  autocmd FileType qf setlocal nowrap
+  autocmd FileType qf 20wincmd_
 augroup END
 
 " Custom highlighting
