@@ -171,6 +171,9 @@ set shiftwidth=2
 " map \q to :q
 nnoremap <silent><leader>q :q<CR>
 
+" open url under cursor
+nmap <silent>gx :!xdg-open <c-r><c-a><CR>
+
 " go to nvim configurations
 nnoremap <silent><leader>cv :e ~/.config/nvim/init.vim<CR>
 " reload nvim configurations
