@@ -5,12 +5,8 @@ call plug#begin("~/.vim/plugged")
 " rest client
 Plug 'diepm/vim-rest-console'
 
-" dirvish & dirvish git
+" dirvish
 Plug 'justinmk/vim-dirvish'
-Plug 'kristijanhusak/vim-dirvish-git'
-
-" bufferline
-Plug 'ap/vim-buftabline'
 
 " vim language pack
 Plug 'sheerun/vim-polyglot'
@@ -45,9 +41,6 @@ Plug 'tpope/vim-projectionist'
 " fuzzy finder
 Plug 'ctrlpvim/ctrlp.vim'
 
-" wakatime
-Plug 'wakatime/vim-wakatime'
-
 " commentary
 Plug 'tpope/vim-commentary'
 
@@ -68,9 +61,6 @@ Plug 'tpope/vim-rails'
 
 " endwise
 Plug 'tpope/vim-endwise'
-
-" rvm vim
-Plug 'tpope/vim-rvm'
 
 " vim surround
 Plug 'tpope/vim-surround'
@@ -108,9 +98,6 @@ Plug 'christoomey/vim-tmux-runner'
 
 " live html, css and javascript
 Plug 'turbio/bracey.vim'
-
-" devicons
-Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -236,10 +223,6 @@ command! Path :echo join(split(&path, ","), "\n")
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let dirvish_mode = ':sort ,^.*/,'
 autocmd FileType dirvish setl nolist
-" call dirvish#add_icon_fn({p -> WebDevIconsGetFileTypeSymbol(p)})
-
-" dirvish git
-let g:dirvish_git_show_ignored = 1
 
 " theme configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -251,9 +234,9 @@ syntax enable
 set t_Co=256
 colorscheme base16-default-dark
 
-" Folding
+" quickfix configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup remember_folds
+augroup QuickFixOptions
   autocmd!
   autocmd FileType qf setlocal nolist
   autocmd FileType qf setlocal norelativenumber
@@ -269,8 +252,10 @@ highlight Normal     guibg=Black
 highlight LineNr     guibg=Black
 highlight VertSplit  guibg=Black guifg=Grey14
 highlight SignColumn guibg=Black
+highlight FoldColumn guibg=Black
 
 " vertical and horizontal cursors lines
+highlight Folded       guibg=#0c0c0c
 highlight CursorLine   guibg=#0c0c0c
 highlight ColorColumn  guibg=#0c0c0c
 highlight CursorLineNr guibg=#0c0c0c
@@ -283,13 +268,7 @@ highlight EndOfBuffer guifg=Gray14
 " vim-ruby settings
 let ruby_operators = 1
 let ruby_pseudo_operators = 1
-
-" buftabline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight BufTabLineFill    guibg=#0c0c0c
-highlight BufTabLineActive  guibg=#3c3c3c guifg=#eca55c
-highlight BufTabLineHidden  guibg=#202020 guifg=#909090
-highlight BufTabLineCurrent guibg=#3c3c3c guifg=#eca55c
+let g:rubycomplete_rails = 1
 
 " statusline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -454,23 +433,20 @@ omap af <Plug>(coc-funcobj-a)
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
-" " Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
-" " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " ctrlp finder configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ignore patterns
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]\.(git|hg|svn))$',
-      \ 'file': '\v\.(exe|so|dll)$',
-      \ }
+" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|storage\|log\|vendor\|public\|\.git'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|storage\|vendor\|public\|\.git'
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|storage\|public\|log\|vendor\|public'
 " turn off ctrlp caching
 let g:ctrlp_use_caching = 0
 
