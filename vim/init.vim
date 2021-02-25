@@ -221,7 +221,8 @@ command! Path :echo join(split(&path, ","), "\n")
 
 " dirvish configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let dirvish_mode = ':sort ,^.*/,'
+let dirvish_mode = ':sort ,^\v(.*[\/])|\ze,'
+let g:dirvish_relative_paths = 1
 autocmd FileType dirvish setl nolist
 
 " theme configuration
@@ -414,7 +415,7 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 " ctrlp finder configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ignore patterns
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
 
 " let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|storage\|log\|vendor\|public\|\.git'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|storage\|vendor\|public\|\.git'
