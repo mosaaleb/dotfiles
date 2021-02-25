@@ -1,3 +1,4 @@
+# herb
 begin
   require 'hirb'
 rescue LoadError
@@ -23,5 +24,17 @@ if defined? Hirb
 
   Hirb.enable
 end
+
+# aliases
+if defined?(PryByebug)
+  Pry.commands.alias_command 'cc', 'continue'
+  Pry.commands.alias_command 'ss', 'step'
+  Pry.commands.alias_command 'nn', 'next'
+  Pry.commands.alias_command 'ff', 'finish'
+end
+
+Pry.commands.alias_command 'ee', 'exit'
+Pry.commands.alias_command 'sh', 'show-source'
+Pry.commands.alias_command 'dd', 'disable-pry'
 
 Pry.config.editor = 'nvim'
