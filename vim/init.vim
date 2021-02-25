@@ -250,7 +250,7 @@ augroup END
 " same as (Normal) colorscheme bg color (synIDattr(hlID("Normal"), "bg")
 highlight Normal     guibg=Black
 highlight LineNr     guibg=Black
-highlight VertSplit  guibg=Black guifg=Grey14
+highlight VertSplit  guibg=Black guifg=Gray14
 highlight SignColumn guibg=Black
 highlight FoldColumn guibg=Black
 
@@ -261,8 +261,8 @@ highlight ColorColumn  guibg=#0c0c0c
 highlight CursorLineNr guibg=#0c0c0c
 
 " non text colors
-highlight NonText     guifg=Grey14
-highlight WhiteSpace  guifg=Grey14
+highlight NonText     guifg=Gray14
+highlight WhiteSpace  guifg=Gray14
 highlight EndOfBuffer guifg=Gray14
 
 " vim-ruby settings
@@ -275,10 +275,6 @@ let g:rubycomplete_rails = 1
 set noshowmode
 set laststatus=2
 
-function! CurrentFile()
-  return expand(fnamemodify(expand('%h'), ':t'))
-endfunction
-
 function! CurrentWorkingDirectory()
   return fnamemodify(getcwd(), ':t')
 endfunction
@@ -290,65 +286,41 @@ function! ReadOnly()
     return ''
 endfunction
 
-function! GitBranchIcon()
-  let git = fugitive#head()
-  if git != ''
-    return ''
-  else
-    return ''
-endfunction
-
 function! GitInfo()
   let git = fugitive#head()
   if git != ''
     return fugitive#head()
   else
-    return ''
+    return 'NIL'
 endfunction
 
-hi User1   guibg=#0c0c0c guifg=#eca55c
-hi User2   guibg=#0c0c0c guifg=#eca55c gui=bold
-hi User3   guibg=#0c0c0c guifg=#ff0000 gui=bold
+let g:statusline_primary_color   = "#d7a542"
+let g:statusline_secondary_color = "#0c0c0c"
+let g:statusline_tertiary_color  = '#4a4344'
 
-hi StatusLine    guibg=#0c0c0c
-hi StatusLineNC  guibg=#0c0c0c
+let g:statusline_inactive_primary_color = "#4a4344"
+let g:statusline_inactive_secondary_color = "#2c2c2c"
+
+execute 'hi User1 guibg=' . g:statusline_secondary_color ' guifg=' . g:statusline_primary_color
+execute 'hi User2 guibg=' . g:statusline_primary_color   ' guifg=' . g:statusline_tertiary_color ' gui=bold'
+execute 'hi User3 guibg=' . g:statusline_secondary_color ' guifg=' . g:statusline_primary_color
+
+execute 'hi StatusLine guibg='   . g:statusline_secondary_color ' guifg=' . g:statusline_primary_color
+execute 'hi StatusLineNC guibg=' . g:statusline_inactive_secondary_color ' guifg=' . g:statusline_inactive_primary_color
+
 set statusline=
 
-let g:currentmode={
-    \ 'n'      : 'NORMAL ',
-    \ 'v'      : 'VISUAL ',
-    \ 'V'      : 'V·LINE ',
-    \ "\<C-V>" : 'V·Block ',
-    \ 's'      : 'SELECT ',
-    \ 'S'      : 'S·LINE ',
-    \ "\<C-S>" : 'S·BLOCK ',
-    \ 'i'      : 'INSERT ',
-    \ 'R'      : 'REPLACE ',
-    \ 'Rv'     : 'V·REPLACE ',
-    \ 'c'      : 'COMMAND '
-    \}
+" left side [gitinfo | relative file path | modified flag]
+set statusline+=%2*\ %{GitInfo()}\ %*
+set statusline+=%1*\ \ %f\ %*
+set statusline+=%1*\ %m\ %*
 
-" left side [mode | gitinfo | relative file path]
-set statusline+=%2*%{g:currentmode[mode()]}
-
-set statusline+=%1*\ %5{GitBranchIcon()}%*
-set statusline+=%1*\ %{GitInfo()}\ %*
-
-set statusline+=%1*\ %5{WebDevIconsGetFileTypeSymbol()}%*
-set statusline+=%1*\ %f%*
-
-" right side [lines number | percentage | working directory]
+" right side [readonly? | line number/total lines | percentage | working directory]
 set statusline+=%=
-set statusline+=%3*%-5{ReadOnly()}%*
-
-set statusline+=%1*\ 🗋\ %*
-set statusline+=%1*%-5L%*
-
-set statusline+=%1*\ ％%*
-set statusline+=%1*%-5p%*
-
-set statusline+=%1*\ 🖿%*
-set statusline+=%2*\ %{CurrentWorkingDirectory()}%*%<
+set statusline+=%3*\ %{ReadOnly()}\ %*
+set statusline+=%1*\ %l/%L\ %*
+set statusline+=%1*\ %p%%\ \ %*
+set statusline+=%2*\ %{CurrentWorkingDirectory()}\ %*%<
 
 " COC configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
