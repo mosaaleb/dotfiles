@@ -219,6 +219,11 @@ augroup END
 " inpsect path option in a more readable format
 command! Path :echo join(split(&path, ","), "\n")
 
+" show higlight group for under cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " dirvish configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let dirvish_mode = ':sort ,^\v(.*[\/])|\ze,'
