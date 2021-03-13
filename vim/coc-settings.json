@@ -1,4 +1,5 @@
 {
+  "coc.preferences.colorSupport": false,
   "solargraph.diagnostics": true,
   "solargraph.autoformat": true,
   "solargraph.hover": true,
