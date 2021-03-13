@@ -53,6 +53,9 @@ Plug 'airblade/vim-gitgutter'
 " vim bundler (useful for including ctags from installed gems)
 Plug 'tpope/vim-bundler'
 
+" tags management
+Plug 'ludovicchabant/vim-gutentags'
+
 " helpers for unix (Rename, Move, Mkdir, Delete)
 Plug 'tpope/vim-eunuch'
 
