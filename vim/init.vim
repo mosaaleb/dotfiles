@@ -3,7 +3,7 @@
 call plug#begin("~/.vim/plugged")
 
 " rest client
-Plug 'diepm/vim-rest-console'
+" Plug 'diepm/vim-rest-console'
 
 " dirvish
 Plug 'justinmk/vim-dirvish'
@@ -19,7 +19,6 @@ Plug '907th/vim-auto-save'
 
 " language server support
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
-Plug 'dense-analysis/ale'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -34,6 +33,9 @@ Plug 'tpope/vim-dispatch'
 " unimpaired (useful for next, previous patterns) EX: :tn => ]t
 Plug 'tpope/vim-unimpaired'
 
+" " support for node projects
+Plug 'moll/vim-node'
+
 " support for ruby projects (rake, lib, ....)
 Plug 'tpope/vim-projectionist'
   Plug 'tpope/vim-rake'
@@ -44,6 +46,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 " commentary
 Plug 'tpope/vim-commentary'
 
+" colors highlighter
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
 " gitlens & git & github & gigutter
 Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-fugitive'
@@ -53,8 +58,8 @@ Plug 'airblade/vim-gitgutter'
 " vim bundler (useful for including ctags from installed gems)
 Plug 'tpope/vim-bundler'
 
-" tags management
-Plug 'ludovicchabant/vim-gutentags'
+" " tags management
+" Plug 'ludovicchabant/vim-gutentags'
 
 " helpers for unix (Rename, Move, Mkdir, Delete)
 Plug 'tpope/vim-eunuch'
@@ -67,9 +72,6 @@ Plug 'tpope/vim-endwise'
 
 " vim surround
 Plug 'tpope/vim-surround'
-
-" autoclose tag
-Plug 'alvan/vim-closetag'
 
 " Autogenerate pairs for '{(['
 Plug 'jiangmiao/auto-pairs'
@@ -197,9 +199,6 @@ nnoremap <silent> <C-Down>  :resize -5<CR>
 nnoremap <silent> <C-Right> :vertical resize +5<CR>
 nnoremap <silent> <C-Left>  :vertical resize -5<CR>
 
-" buffer switching and deleting
-map bn :bn<CR>
-map bp :bp<CR>
 " close buffer without closing window
 map <silent> bd :bp<bar>sp<bar>bn<bar>bd<CR>
 
@@ -219,10 +218,18 @@ augroup LoadCocNvim
                      \| autocmd! LoadCocNvim
 augroup END
 
+" swtich to day colorscheme
+function Day()
+  :colorscheme base16-gruvbox-light-soft
+  :highlight NonText guifg=Gray80
+  :highlight WhiteSpace guifg=Gray80
+endfunction
+command! Day exec Day()
+
 " inpsect path option in a more readable format
 command! Path :echo join(split(&path, ","), "\n")
 
-" show higlight group for under cursor
+" show higlight group for word under cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
@@ -254,25 +261,43 @@ augroup QuickFixOptions
   autocmd FileType qf 20wincmd_
 augroup END
 
+" Folding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" augroup AutoSaveFolds
+"   autocmd!
+"   autocmd BufWinLeave *.* mkview!
+"   autocmd BufWinEnter *.* silent! loadview
+" augroup END
+
 " Custom highlighting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" same as (Normal) colorscheme bg color (synIDattr(hlID("Normal"), "bg")
-highlight Normal     guibg=Black
-highlight LineNr     guibg=Black
-highlight VertSplit  guibg=Black guifg=Gray14
-highlight SignColumn guibg=Black
-highlight FoldColumn guibg=Black
+highlight Normal     guibg=Gray7
 
-" vertical and horizontal cursors lines
-highlight Folded       guibg=#0c0c0c
-highlight CursorLine   guibg=#0c0c0c
-highlight ColorColumn  guibg=#0c0c0c
-highlight CursorLineNr guibg=#0c0c0c
+highlight LineNr     guibg=(synIDattr(hlID("Normal"), "bg")
+highlight VertSplit  guibg=(synIDattr(hlID("Normal"), "bg")
+highlight SignColumn guibg=(synIDattr(hlID("Normal"), "bg") guifg=#282828
+highlight FoldColumn guibg=(synIDattr(hlID("Normal"), "bg")
+
+" " vertical and horizontal cursors lines
+highlight Folded       guibg=Gray10
+highlight CursorLine   guibg=Gray10
+highlight ColorColumn  guibg=Gray10
+highlight CursorLineNr guibg=Gray10
 
 " non text colors
-highlight NonText     guifg=Gray14
-highlight WhiteSpace  guifg=Gray14
-highlight EndOfBuffer guifg=Gray14
+highlight NonText     guifg=Gray25
+highlight WhiteSpace  guifg=Gray25
+highlight EndOfBuffer guifg=Gray25
+
+" jsx tags
+highlight jsxOpenPunct   guifg=Grey58
+highlight jsxClosePunct  guifg=Grey58
+highlight jsxCloseString guifg=Grey58
+
+" js
+highlight jsObjectProp guifg=#7cafc2
+highlight link jsObjectKey StorageClass
+highlight link jsDestructuringBraces jsxBraces
 
 " vim-ruby settings
 let ruby_operators = 1
@@ -344,13 +369,13 @@ set statusline+=%3*%{GitInfo()==''?'':'\ \ '.GitInfo().'\ '}%*
 set statusline+=%1*\ %f\ %*
 set statusline+=%1*\ %m\ %*
 
-" right side [readonly? | line number/total lines | percentage | working directory]
+" right side [readonly? | line number | percentage | working directory]
 set statusline+=%=
 set statusline+=%1*\ %{ReadOnly()}\ %*
 set statusline+=%1*\ %l/%L\ %*
 set statusline+=%1*\ %p%%\ \ %*
-set statusline+=%2*%{IsCurrentWindow()?'\ \ '.CurrentWorkingDirectory().'\ ':''}%*%<
-set statusline+=%3*%{IsCurrentWindow()?'':'\ \ '.CurrentWorkingDirectory().'\ '}%*%<
+set statusline+=%2*%{IsCurrentWindow()?'\ '.CurrentWorkingDirectory().'\ ':''}%*%<
+set statusline+=%3*%{IsCurrentWindow()?'':'\ '.CurrentWorkingDirectory().'\ '}%*%<
 
 augroup StatusLineReload
 	autocmd!
@@ -385,6 +410,10 @@ endif
 " use tab to automatically select the first item in list
 inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<tab>"
 
+" let g:coc_filetype_map = {
+"   \ 'eruby': 'html',
+"   \ }
+
 " Use [g and ]g to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -396,7 +425,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use doc to show documentation in preview window.
-nnoremap <leader>doc :call <SID>show_documentation()<CR>
+nnoremap <leader>k :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -505,6 +534,18 @@ let g:rails_projections = {
       \      "template": "require 'rails_helper'\n\n" .
       \        "RSpec.describe '{}' do\nend",
       \   },
+      \   "app/javascript/controllers/*_controller.js": {
+      \     "command": "stimulus",
+      \     "template": "import {open} Controller {close} from 'stimulus';\n\n" .
+      \       "export default class extends Controller {\n}",
+      \   },
+      \   "app/javascript/components/*.js": {
+      \     "command": "react",
+      \     "template": "import React from 'react';\n\n" .
+      \       "const {} = () => (\n" .
+      \       "\t<div>This is {}</div>\n);" .
+      \       "\n\nexport default {};"
+      \   }
       \ }
 
 " test.vim configurations
@@ -515,6 +556,8 @@ nnoremap <silent> <leader>tf   :TestFile<CR>
 nnoremap <silent> <leader>s    :TestSuite<CR>
 nnoremap <silent> <leader>t    :TestNearest<CR>
 
+let test#ruby#rails#executable = 'docker-compose exec web bundle exec rspec'
+let test#ruby#rspec#executable = 'docker-compose exec web bundle exec rspec'
 
 function! ToggleAutoTest()
   if !exists('#AutoTestLast#BufWrite')
@@ -590,11 +633,65 @@ let g:vrc_curl_opts = {
       \ '-i': '',
       \}
 
-" ale configurations
+" seeing is believing configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\   'yaml': ['spectral'],
-\}
+" Assumes you have a Ruby with SiB available in the PATH
+
+function! WithoutChangingCursor(fn)
+  let cursor_pos     = getpos('.')
+  let wintop_pos     = getpos('w0')
+  let old_lazyredraw = &lazyredraw
+  let old_scrolloff  = &scrolloff
+  set lazyredraw
+
+  call a:fn()
+
+  call setpos('.', wintop_pos)
+  call setpos('.', cursor_pos)
+  redraw
+  let &lazyredraw = old_lazyredraw
+  let scrolloff   = old_scrolloff
+endfun
+
+function! SibAnnotateAll(scope)
+  call WithoutChangingCursor(function('execute', [a:scope . "!seeing_is_believing --timeout 12 --line-length 500 --number-of-captures 300 --alignment-strategy chunk"]))
+endfun
+
+function! SibAnnotateMarked(scope)
+  call WithoutChangingCursor(function('execute', [a:scope . "!seeing_is_believing --xmpfilter-style --timeout 12 --line-length 500 --number-of-captures 300 --alignment-strategy chunk"]))
+endfun
+
+function! SibCleanAnnotations(scope)
+  call WithoutChangingCursor(function('execute', [a:scope . "!seeing_is_believing --clean"]))
+endfun
+
+function! SibToggleMark()
+  let pos  = getpos('.')
+  let line = getline(".")
+  if line =~ '^\s*$'
+    let line = '# => '
+  elseif line =~ '# =>'
+    let line = substitute(line, ' *# =>.*', '', '')
+  else
+    let line .= '  # => '
+  end
+  call setline('.', line)
+  call setpos('.', pos)
+endfun
+
+" Enable seeing-is-believing mappings only for Ruby
+augroup seeingIsBelievingSettings
+  " clear the settings if they already exist (so we don't run them twice)
+  autocmd!
+  autocmd FileType ruby nmap <buffer> <Leader>b :call SibAnnotateAll("%")<CR>;
+  autocmd FileType ruby nmap <buffer> <Leader>n :call SibAnnotateMarked("%")<CR>;
+  autocmd FileType ruby nmap <buffer> <Leader>v :call SibCleanAnnotations("%")<CR>;
+  autocmd FileType ruby nmap <buffer> <Enter>   :call SibToggleMark()<CR>;
+  autocmd FileType ruby vmap <buffer> <Enter>   :call SibToggleMark()<CR>;
+
+  autocmd FileType ruby vmap <buffer> <Leader>b :call SibAnnotateAll("'<,'>")<CR>;
+  autocmd FileType ruby vmap <buffer> <Leader>n :call SibAnnotateMarked("'<,'>")<CR>;
+  autocmd FileType ruby vmap <buffer> <Leader>v :call SibCleanAnnotations("'<,'>")<CR>;
+augroup END
 
 " END OF FILE

@@ -1,13 +1,12 @@
 {
   "coc.preferences.colorSupport": false,
+
   "solargraph.diagnostics": true,
   "solargraph.autoformat": true,
   "solargraph.hover": true,
   "solargraph.formatting": true,
 
-  "eslint.enable": true,
-
-  "html.filetypes": ["html", "handlebars", "htmldjango", "erb", "eruby"],
+  "html.filetypes": ["html", "handlebars", "htmldjango"],
   "html.autoClosingTags": true,
 
   "yank.highlight.duration": 1000,
