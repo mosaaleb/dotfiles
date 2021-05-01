@@ -5,16 +5,16 @@ shell:
 
 window:
   dimensions:
-   columns: 125
-   lines: 36
+    columns: 125
+    lines: 36
 
   position:
-   x: 125
-   y: 25
+    x: 125
+    y: 25
 
   padding:
-   x: 3
-   y: 4
+    x: 3
+    y: 4
 
 
   # Values for `decorations`:
@@ -79,37 +79,38 @@ cursor:
 
 # moonfly theme
 colors:
+  # COLORSCHEME: dark.yml
   primary:
-    background:        '#080808'
-    foreground:        '#b2b2b2'
+    background: '#080808'
+    foreground: '#b2b2b2'
     bright_foreground: '#eeeeee'
 
   cursor:
-    text:   '#080808'
+    text: '#080808'
 
   selection:
-    text:       '#080808'
+    text: '#080808'
     background: '#b2ceee'
 
   normal:
-    black:   '#373c40'
-    red:     '#ff5454'
-    green:   '#8cc85f'
-    yellow:  '#e3c78a'
-    blue:    '#80a0ff'
+    black: '#373c40'
+    red: '#ff5454'
+    green: '#8cc85f'
+    yellow: '#e3c78a'
+    blue: '#80a0ff'
     magenta: '#d183e8'
-    cyan:    '#79dac8'
-    white:   '#a1aab8'
+    cyan: '#79dac8'
+    white: '#a1aab8'
 
   bright:
-    black:   '#7c8f8f'
-    red:     '#ff5189'
-    green:   '#36c692'
-    yellow:  '#bfbf97'
-    blue:    '#78c2ff'
+    black: '#7c8f8f'
+    red: '#ff5189'
+    green: '#36c692'
+    yellow: '#bfbf97'
+    blue: '#78c2ff'
     magenta: '#ae81ff'
-    cyan:    '#85dc85'
-    white:   '#e2637f'
+    cyan: '#85dc85'
+    white: '#e2637f'
 
 draw_bold_text_with_bright_colors: true
 
@@ -309,7 +310,7 @@ mouse:
 # in the order they were defined in.
 #key_bindings:
 key_bindings:
-  - { key: F11, action: ToggleFullscreen }
+  - {key: F11, action: ToggleFullscreen}
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
