@@ -1,0 +1,1 @@
+--regex-ruby=/^[ \t]*RSpec::Matchers.define :(.*) do /\1/d,rspec custom matcher/
