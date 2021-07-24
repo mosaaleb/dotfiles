@@ -150,6 +150,11 @@ augroup RebalanceWindows
   autocmd VimResized * :wincmd =
 augroup END
 
+" folding
+set foldmethod=indent
+set foldnestmax=10
+set foldlevel=1
+
 " make vim use the global clipboard
 set clipboard=unnamedplus
 
