@@ -615,6 +615,11 @@ let g:rails_projections = {
       \        "test/controllers/{}_controller_test.rb"
       \      ],
       \   },
+      \  "app/concerns/*.rb": {
+      \      "command": "concern",
+      \      "test": "spec/concerns/{}_spec.rb",
+      \      "alternate": "spec/concerns/{}_spec.rb",
+      \   },
       \   "spec/requests/*_spec.rb": {
       \      "command": "request",
       \      "alternate": "app/controllers/{}_controller.rb",
