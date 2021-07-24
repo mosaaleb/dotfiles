@@ -3,7 +3,7 @@
 call plug#begin("~/.vim/plugged")
 
 " rest client
-" Plug 'diepm/vim-rest-console'
+Plug 'diepm/vim-rest-console'
 
 " dirvish
 Plug 'justinmk/vim-dirvish'
@@ -11,14 +11,18 @@ Plug 'justinmk/vim-dirvish'
 " vim language pack
 Plug 'sheerun/vim-polyglot'
 
-" color scheme
+" colorscheme
 Plug 'chriskempson/base16-vim'
 
 " autosave
 Plug '907th/vim-auto-save'
 
-" language server support
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
+" language server common configuration
+Plug 'neovim/nvim-lspconfig'
+" Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
+
+" auto-completion
+Plug 'hrsh7th/nvim-compe'
 
 " snippets
 Plug 'SirVer/ultisnips'
@@ -33,7 +37,7 @@ Plug 'tpope/vim-dispatch'
 " unimpaired (useful for next, previous patterns) EX: :tn => ]t
 Plug 'tpope/vim-unimpaired'
 
-" " support for node projects
+" support for node projects
 Plug 'moll/vim-node'
 
 " support for ruby projects (rake, lib, ....)
@@ -50,7 +54,6 @@ Plug 'tpope/vim-commentary'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " gitlens & git & github & gigutter
-Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
@@ -58,8 +61,8 @@ Plug 'airblade/vim-gitgutter'
 " vim bundler (useful for including ctags from installed gems)
 Plug 'tpope/vim-bundler'
 
-" " tags management
-" Plug 'ludovicchabant/vim-gutentags'
+" tags management (auto update tags)
+Plug 'ludovicchabant/vim-gutentags'
 
 " helpers for unix (Rename, Move, Mkdir, Delete)
 Plug 'tpope/vim-eunuch'
@@ -98,7 +101,7 @@ Plug 'pangloss/vim-javascript'
 " use same window navigation mappings in both vim and tmux
 Plug 'christoomey/vim-tmux-navigator'
 
-" introduce vim to tmux (second commands from vim to tmux)
+" introduce vim to tmux (send commands from vim to tmux)
 Plug 'christoomey/vim-tmux-runner'
 
 " live html, css and javascript
@@ -117,9 +120,11 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable treesitter highlight module
 lua require('nvim-treesitter.configs').setup { highlight = { enable = true } }
+
 " disable netrw
 let loaded_netrwPlugin = 1
 
+set mouse=a
 set signcolumn=yes
 set relativenumber number
 set numberwidth=6
@@ -204,10 +209,10 @@ vnoremap <Right> <Nop>
 " nnoremap <Right> <c-w>l
 
 " resize vertically and horizontally
-nnoremap <silent> <C-Up>    :resize +5<CR>
-nnoremap <silent> <C-Down>  :resize -5<CR>
-nnoremap <silent> <C-Right> :vertical resize +5<CR>
-nnoremap <silent> <C-Left>  :vertical resize -5<CR>
+nnoremap <silent> <S-Up>    :resize +3<CR>
+nnoremap <silent> <S-Down>  :resize -3<CR>
+nnoremap <silent> <S-Right> :vertical resize +5<CR>
+nnoremap <silent> <S-Left>  :vertical resize -5<CR>
 
 " close buffer without closing window
 map <silent> bd :bp<bar>sp<bar>bn<bar>bd<CR>
@@ -275,25 +280,20 @@ augroup QuickFixOptions
   autocmd FileType qf 20wincmd_
 augroup END
 
-" Folding
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" augroup AutoSaveFolds
-"   autocmd!
-"   autocmd BufWinLeave *.* mkview!
-"   autocmd BufWinEnter *.* silent! loadview
-" augroup END
-
 " Custom highlighting
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 highlight Normal     guibg=Gray7
+highlight Comment    guifg=Gray45
+highlight Search     guibg=Gray7 guifg=#fb5aaa gui=underline,bold
+highlight IncSearch  guibg=Gray7 guifg=#fb5aaa gui=underline,bold
 
 highlight LineNr     guibg=(synIDattr(hlID("Normal"), "bg")
 highlight VertSplit  guibg=(synIDattr(hlID("Normal"), "bg")
 highlight SignColumn guibg=(synIDattr(hlID("Normal"), "bg") guifg=#282828
 highlight FoldColumn guibg=(synIDattr(hlID("Normal"), "bg")
 
-" " vertical and horizontal cursors lines
-highlight Folded       guibg=Gray10
+" vertical and horizontal cursors lines
+highlight Folded       guibg=Gray10 guifg=Gray45
 highlight CursorLine   guibg=Gray10
 highlight ColorColumn  guibg=Gray10
 highlight CursorLineNr guibg=Gray10
@@ -312,6 +312,9 @@ highlight jsxCloseString guifg=Grey58
 highlight jsObjectProp guifg=#7cafc2
 highlight link jsObjectKey StorageClass
 highlight link jsDestructuringBraces jsxBraces
+
+" ruby
+ highlight rubyInterpolationDelimiter guifg=#5f8787
 
 " vim-ruby settings
 let ruby_operators = 1
@@ -337,7 +340,7 @@ endfunction
 function! GitInfo()
   let git = fugitive#head()
   if git != ''
-    return ' '.fugitive#head()
+    return strpart(' '.fugitive#head(), 0, 20)
   else
     return ''
 endfunction
@@ -775,14 +778,14 @@ endfun
 augroup seeingIsBelievingSettings
   " clear the settings if they already exist (so we don't run them twice)
   autocmd!
-  autocmd FileType ruby nmap <buffer> <Leader>b :call SibAnnotateAll("%")<CR>;
-  autocmd FileType ruby nmap <buffer> <Leader>n :call SibAnnotateMarked("%")<CR>;
+  autocmd FileType ruby nmap <buffer> <Leader>n :call SibAnnotateAll("%")<CR>;
+  autocmd FileType ruby nmap <buffer> <Leader>b :call SibAnnotateMarked("%")<CR>;
   autocmd FileType ruby nmap <buffer> <Leader>v :call SibCleanAnnotations("%")<CR>;
   autocmd FileType ruby nmap <buffer> <Enter>   :call SibToggleMark()<CR>;
   autocmd FileType ruby vmap <buffer> <Enter>   :call SibToggleMark()<CR>;
 
-  autocmd FileType ruby vmap <buffer> <Leader>b :call SibAnnotateAll("'<,'>")<CR>;
-  autocmd FileType ruby vmap <buffer> <Leader>n :call SibAnnotateMarked("'<,'>")<CR>;
+  autocmd FileType ruby vmap <buffer> <Leader>n :call SibAnnotateAll("'<,'>")<CR>;
+  autocmd FileType ruby vmap <buffer> <Leader>b :call SibAnnotateMarked("'<,'>")<CR>;
   autocmd FileType ruby vmap <buffer> <Leader>v :call SibCleanAnnotations("'<,'>")<CR>;
 augroup END
 
