@@ -104,6 +104,9 @@ Plug 'christoomey/vim-tmux-runner'
 " live html, css and javascript
 Plug 'turbio/bracey.vim'
 
+" treesitter
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/playground'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -112,6 +115,8 @@ call plug#end()
 
 " General configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable treesitter highlight module
+lua require('nvim-treesitter.configs').setup { highlight = { enable = true } }
 " disable netrw
 let loaded_netrwPlugin = 1
 
@@ -415,6 +420,7 @@ inoremap <silent><expr> <C-Space>  compe#complete()
 inoremap <silent><expr> <TAB>      pumvisible() ? compe#confirm({ 'keys': '<CR>', 'select': v:true }) : "\<C-g>u\<tab>"
 inoremap <silent><expr> <C-j>      pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <silent><expr> <C-k>      pumvisible() ? "\<C-p>" : "\<C-k>"
+
 " COC configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set hidden
