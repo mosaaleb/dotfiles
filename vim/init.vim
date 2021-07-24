@@ -244,6 +244,10 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+" use ack instead of grep for grepping
+set grepprg=ack\ -s\ -H\ --nopager\ --nocolor\ --nogroup\ --column
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+
 " dirvish configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let dirvish_mode = ':sort ,^\v(.*[\/])|\ze,'
