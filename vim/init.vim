@@ -436,42 +436,36 @@ inoremap <silent><expr> <C-k>      pumvisible() ? "\<C-p>" : "\<C-k>"
 " nvim-lsp configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 lua << EOF
-require('lspconfig').solargraph.setup{
-  handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = true,
-        virtual_text = false,
-      }
-    ),
+-- disable virtual_text, enable both underline and signs
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    signs = true,
+    underline = true,
+    virtual_text = false,
   }
-}
+)
 
-require('lspconfig').tsserver.setup{
-  handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = true,
-        virtual_text = false
-      }
-    ),
-  }
-}
+require('lspconfig').solargraph.setup{}
+require('lspconfig').tsserver.setup{}
 EOF
 
-nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap gh <cmd>lua vim.lsp.buf.hover()<CR>
-nmap <silent> [g <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nmap <silent> ]g <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" show diagnostics when hover
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
-" format current buffer
+" mappings
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gh <cmd>lua vim.lsp.buf.hover()<CR>
+
+" diagnostics
+nnoremap <silent> [g <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]g <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+" formattting
 nnoremap <silent> <leader>ff <cmd>lua vim.lsp.buf.formatting()<CR>
-
-" format range
-nnoremap <leader>ft <cmd>lua vim.lsp.buf.range_formatting()<CR>
-xmap <leader>ft <cmd>lua vim.lsp.buf.range_formatting()<CR>
+nnoremap <silent> <leader>ft <cmd>lua vim.lsp.buf.range_formatting()<CR>
+xmap     <silent> <leader>ft <cmd>lua vim.lsp.buf.range_formatting()<CR>
 
 " COC configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
