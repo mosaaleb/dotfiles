@@ -37,4 +37,9 @@ Pry.commands.alias_command 'ee', 'exit'
 Pry.commands.alias_command 'sh', 'show-source'
 Pry.commands.alias_command 'dd', 'disable-pry'
 
+Pry::Commands.block_command 'trace', 'filter caller backtrace' do
+  output = caller.select { |line| line['bizimply'] }
+  puts "\e[31m#{output.join("\n")}\e[0m"
+end
+
 Pry.config.editor = 'nvim'

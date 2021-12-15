@@ -5,8 +5,8 @@ shell:
 
 window:
   dimensions:
-    columns: 125
-    lines: 36
+    columns: 200
+    lines: 70
 
   position:
     x: 125
@@ -20,7 +20,7 @@ window:
   # Values for `decorations`:
   #     - full: Borders and title bar
   #     - none: Neither borders nor title bar
-  decorations: none
+  decorations: full
 
   # Values for `startup_mode`:
   #   - Windowed
@@ -35,29 +35,29 @@ window:
   # GTK theme variant (Linux/BSD only)
   # Override the variant of the GTK theme. Commonly supported values are `dark`
   # and `light`. Set this to `None` to use the default theme variant.
-  gtk_theme_variant: None
+  # gtk_theme_variant: None
 scrolling:
   history: 10000
   multiplier: 3
 
 font:
   normal:
-    family: IBM Plex Mono
+    family: Edlo
     style: Regular
 
   bold:
-    family: IBM Plex Mono
-    style: SemiBold
+    family: Edlo
+    style: Bold
 
   italic:
-    family: IBM Plex Mono
+    family: Edlo
     style: Italic
 
   bold_italic:
-    family: IBM Plex Mono
+    family: Edlo
     style: SemiBold Italic
 
-  size: 13.5
+  size: 22
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -81,7 +81,7 @@ cursor:
 colors:
   # COLORSCHEME: dark.yml
   primary:
-    background: '#080808'
+    background: '#0d0d0d'
     foreground: '#b2b2b2'
     bright_foreground: '#eeeeee'
 
@@ -310,7 +310,9 @@ mouse:
 # in the order they were defined in.
 #key_bindings:
 key_bindings:
-  - {key: F11, action: ToggleFullscreen}
+  - { key: F,         mods: Alt, chars: "\x1bf" }
+  - { key: B,         mods: Alt, chars: "\x1bb" }
+  - { key: F11,       action: ToggleFullscreen }
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }

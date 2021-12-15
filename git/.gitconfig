@@ -8,4 +8,4 @@
 	graph = log --all --decorate --oneline --graph
 [core]
 	autocrlf = false
-	excludesfile = /home/muhammad/.gitignore
+	excludesfile = ~/.gitignore

@@ -1,4 +1,10 @@
 tags
 *.rest
 todo.md
+dip.yml
 Session.vim
+.rubocop.yml
+.eslintrc.json
+node_modules/
+package-lock.json
+package.json
