@@ -1,18 +1,17 @@
 {
   "coc.preferences.colorSupport": false,
+  "coc.preferences.useQuickfixForLocations": true,
 
   "solargraph.diagnostics": true,
   "solargraph.autoformat": true,
   "solargraph.hover": true,
   "solargraph.formatting": true,
 
-  "html.filetypes": ["html", "handlebars", "htmldjango"],
+  "html.filetypes": ["html", "handlebars", "htmldjango", "erb"],
   "html.autoClosingTags": true,
 
-  "yank.highlight.duration": 1000,
-
-  "diagnostic.infoSign": "--",
-  "diagnostic.hintSign": "--",
-  "diagnostic.errorSign": "⛌",
-  "diagnostic.warningSign": "⁈"
+  "diagnostic.infoSign": "…",
+  "diagnostic.hintSign": "…",
+  "diagnostic.errorSign": "✕",
+  "diagnostic.warningSign": "!"
 }

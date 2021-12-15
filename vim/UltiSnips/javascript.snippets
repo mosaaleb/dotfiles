@@ -1,4 +1,4 @@
-snippet pre-json
+snippet pretty_json
 <pre>
 	{JSON.stringify(${1:object}, null, '\n')}
 </pre>
@@ -9,7 +9,10 @@ const chokidar = require("chokidar");
 
 environment.config.devServer.before = (app, server) => {
   chokidar
-    .watch(["config/locales/*.yml", "app/views/**/*.erb"])
-    .on("change", () => server.sockWrite(server.sockets, "content-changed"));
+    .watch([
+      "app/views/**/*.erb",
+      "config/locales/*.yml",
+      "app/components/**/*.{erb,scss}"
+    ]).on("change", () => server.sockWrite(server.sockets, "content-changed"));
 };
 endsnippet

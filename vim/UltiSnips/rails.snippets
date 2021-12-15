@@ -7,3 +7,15 @@ config.after_initialize do
 	Bullet.rails_logger = true
 end
 endsnippet
+
+snippet ldebug
+Rails.logger.debug { "\e[41mHINT: #{$1}\e[0m" }
+endsnippet
+
+snippet ldebugpretty
+Rails.logger.debug { "\e[41mHINT: #{JSON.pretty_generate($1.as_json)}\e[0m" }
+endsnippet
+
+snippet pretty_print
+puts JSON.pretty_generate($1.as_json)
+endsnippet
