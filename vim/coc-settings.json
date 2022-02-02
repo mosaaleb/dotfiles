@@ -7,8 +7,10 @@
   "solargraph.hover": true,
   "solargraph.formatting": true,
 
-  "html.filetypes": ["html", "handlebars", "htmldjango", "erb"],
+  "html.filetypes": ["html", "handlebars", "htmldjango", "erb", "javascriptreact"],
   "html.autoClosingTags": true,
+
+  "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
 
   "diagnostic.infoSign": "…",
   "diagnostic.hintSign": "…",

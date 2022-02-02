@@ -1,5 +1,13 @@
 " COC configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:coc_global_extensions = [
+"   \ 'coc-solargraph',
+"   \ 'coc-json',
+"   \ 'coc-tsserver',
+"   \ 'coc-prettier',
+"   \ 'coc-eslint8'
+"   \ ]
+
 set hidden
 set nobackup
 set nowritebackup

@@ -101,8 +101,9 @@ Plug 'tpope/vim-repeat'
 Plug 'kana/vim-textobj-user'
   Plug 'nelstrom/vim-textobj-rubyblock'
 
-" javascript
-Plug 'pangloss/vim-javascript'
+" javascript & react
+" Plug 'pangloss/vim-javascript'
+Plug 'neoclide/vim-jsx-improve'
 
 " use same window navigation mappings in both vim and tmux
 Plug 'christoomey/vim-tmux-navigator'
