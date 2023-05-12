@@ -19,3 +19,9 @@ endsnippet
 snippet pretty_print
 puts JSON.pretty_generate($1.as_json)
 endsnippet
+
+snippet chift_integration
+scope :with_integration, lambda { |integration|
+	joins(:chift_consumer).where(chift_consumers: { integration: integration })
+}
+endsnippet
