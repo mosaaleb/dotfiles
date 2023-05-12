@@ -1,5 +1,6 @@
-export ZSH="/Users/mosaaleb/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/bin:$PATH"
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/12/bin
 
 ZSH_THEME="miloshadzic"
 CASE_SENSITIVE="false"
@@ -10,7 +11,7 @@ ENABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 
 # Standard plugins in: $ZSH/plugins/ Custom Plugins in: $ZSH_CUSTOM/plugins/
-plugins=(z zsh-syntax-highlighting zsh-autosuggestions rvm jira)
+plugins=(z zsh-syntax-highlighting zsh-autosuggestions asdf jira)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -34,9 +35,12 @@ alias tmuxconfig="nvim ~/.tmux.conf"
 alias nvimconfig="nvim ~/.config/nvim/init.vim"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 alias alacrittyconfig="nvim ~/.config/alacritty/alacritty.yml"
+alias seeing_is_believing="andyw8_seeing_is_believing"
 
-# places
-alias bizimply="cd ~/code/work/bizimply"
+# pennylane
+alias penny="cd ~/code/pennylane/jeancaisse"
+alias prodcon="heroku run rails console --app jeancaisse-prod"
+alias stagcon="heroku run rails console --app"
 
 # bindings
 ################################################################################
@@ -49,8 +53,17 @@ function sourceZsh() {
 }
 zle -N sourceZsh
 bindkey '^[r' sourceZsh
+export PATH="/opt/homebrew/opt/icu4c/bin:$PATH"
+export PATH="/opt/homebrew/opt/icu4c/sbin:$PATH"
 
-################################################################################
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
+function hiicu63() {
+  local last_dir=$(pwd)
+
+  cd $(brew --prefix)/Library/Taps/homebrew/homebrew-core/Formula
+  git checkout icu4c-69
+  brew reinstall ./icu4c.rb
+  git checkout master
+
+  cd $last_dir
+}
+export PATH="/opt/homebrew/opt/postgresql@12/bin:$PATH"
