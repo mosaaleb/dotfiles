@@ -12,9 +12,12 @@ Plug 'justinmk/vim-dirvish'
 Plug 'sheerun/vim-polyglot'
 
 " colorscheme
-Plug 'chriskempson/base16-vim'
-Plug 'kvrohit/substrata.nvim'
-Plug 'folke/tokyonight.nvim'
+" Plug 'chriskempson/base16-vim'
+" Plug 'olimorris/onedarkpro.nvim'
+Plug 'navarasu/onedark.nvim'
+
+" quickfix
+Plug 'kevinhwang91/nvim-bqf'
 
 " autosave
 Plug '907th/vim-auto-save'
@@ -89,7 +92,6 @@ Plug 'vim-ruby/vim-ruby'
 
 " vim test runner
 Plug 'janko/vim-test'
-Plug 'rcarriga/vim-ultest'
 
 " ruby ri documentation
 Plug 'danchoi/ri.vim'
@@ -102,7 +104,6 @@ Plug 'kana/vim-textobj-user'
   Plug 'nelstrom/vim-textobj-rubyblock'
 
 " javascript & react
-" Plug 'pangloss/vim-javascript'
 Plug 'neoclide/vim-jsx-improve'
 
 " use same window navigation mappings in both vim and tmux
@@ -122,8 +123,15 @@ Plug 'nvim-treesitter/playground'
 " CSV
 Plug 'chrisbra/csv.vim'
 
-" CoPilot
-Plug 'github/copilot.vim'
+" find nested yaml keys
+Plug 'munen/find_yaml_key'
+" reveal yaml path
+Plug 'Einenlum/yaml-revealer'
+
+" figure it out
+Plug 'eandrju/cellular-automaton.nvim'
+
+" ChatGPT
+Plug 'james1236/backseat.nvim'
 
 call plug#end()
-

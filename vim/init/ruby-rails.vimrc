@@ -40,43 +40,34 @@ let g:rails_projections = {
       \  "app/controllers/*_controller.rb": {
       \      "test": [
       \        "spec/requests/{}_spec.rb",
+      \        "spec/requests/{}_controller_spec.rb",
       \        "spec/controllers/{}_controller_spec.rb",
       \        "test/controllers/{}_controller_test.rb"
       \      ],
       \      "alternate": [
       \        "spec/requests/{}_spec.rb",
+      \        "spec/requests/{}_controller_spec.rb",
       \        "spec/controllers/{}_controller_spec.rb",
       \        "test/controllers/{}_controller_test.rb"
       \      ],
       \   },
-      \  "app/concerns/*.rb": {
+      \  "app/models/concerns/*.rb": {
       \      "command": "concern",
-      \      "test": "spec/concerns/{}_spec.rb",
-      \      "alternate": "spec/concerns/{}_spec.rb",
+      \      "test": "spec/models/concerns/{}_spec.rb",
+      \      "alternate": "spec/models/concerns/{}_spec.rb",
       \   },
-      \  "app/components/*_component.rb": {
-      \      "command": "component",
-      \      "type": "component",
-      \      "test": [
-      \         "spec/components/{}_component_spec.rb",
-      \         "test/components/{}_component_test.rb"
-      \      ],
-      \      "alternate": [
-      \         "spec/components/{}_component_spec.rb",
-      \         "test/components/{}_component_test.rb"
-      \      ],
-      \     "template": "# frozen_string_literal: true\n\n" .
-      \       "class {camelcase|capitalize|colons}Component < ViewComponent::Base\n" .
-      \       "  def initialize; end\n" .
-      \       "end"
-      \   },
-      \   "app/components/*_component/*_component.html.erb": {
-      \     "type": "componentview", "affinity": "model"
-      \   },
-      \   "app/components/*_component/*_component.scss": {
-      \     "type": "componentstylesheet", "affinity": "model"
+      \  "app/controllers/concerns/*.rb": {
+      \      "command": "concern",
+      \      "test": "spec/controllers/concerns/{}_spec.rb",
+      \      "alternate": "spec/controllers/concerns/{}_spec.rb",
       \   },
       \   "spec/requests/*_spec.rb": {
+      \      "command": "request",
+      \      "alternate": "app/controllers/{}_controller.rb",
+      \      "template": "require 'rails_helper'\n\n" .
+      \        "RSpec.describe '{}' do\nend",
+      \   },
+      \   "spec/requests/*_controller_spec.rb": {
       \      "command": "request",
       \      "alternate": "app/controllers/{}_controller.rb",
       \      "template": "require 'rails_helper'\n\n" .
@@ -87,13 +78,6 @@ let g:rails_projections = {
       \     "template": "import {open} Controller {close} from 'stimulus';\n\n" .
       \       "export default class extends Controller {\n}",
       \   },
-      \   "app/javascript/components/*.js": {
-      \     "command": "react",
-      \     "template": "import React from 'react';\n\n" .
-      \       "const {capitalize} = () => (\n" .
-      \       "\t<div>This is {capitalize}</div>\n);" .
-      \       "\n\nexport default {capitalize};"
-      \   }
       \ }
 
 " vim-ruby settings

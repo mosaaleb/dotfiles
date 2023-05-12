@@ -1,12 +1,17 @@
 " COC configurations
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:coc_global_extensions = [
-"   \ 'coc-solargraph',
-"   \ 'coc-json',
-"   \ 'coc-tsserver',
-"   \ 'coc-prettier',
-"   \ 'coc-eslint8'
-"   \ ]
+let g:coc_global_extensions = [
+  \ 'coc-ultisnips',
+  \ 'coc-solargraph',
+  \ 'coc-json',
+  \ 'coc-tsserver',
+  \ 'coc-prettier',
+  \ 'coc-eslint8',
+  \ 'coc-yaml',
+  \ 'coc-swagger',
+  \ 'coc-emmet',
+  \ 'coc-css',
+  \ ]
 
 set hidden
 set nobackup
@@ -44,7 +49,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use doc to show documentation in preview window.
-nnoremap <leader>k :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -53,6 +58,20 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" automatic show diagnostic on hover
+" function! ShowDocIfNoDiagnostic(timer_id)
+"   if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
+"     silent call CocActionAsync('doHover')
+"   endif
+" endfunction
+
+" function! s:show_hover_doc()
+"   call timer_start(500, 'ShowDocIfNoDiagnostic')
+" endfunction
+
+" autocmd CursorHoldI * :call <SID>show_hover_doc()
+" autocmd CursorHold * :call <SID>show_hover_doc()
 
 " format file
 nnoremap <silent> <leader>ff :call CocAction('format')<CR>
@@ -93,6 +112,9 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Swagger openapi
+command -nargs=0 Swagger :CocCommand swagger.render
 
 " highlights
 highlight! CocInfoSign    guifg=#b0dfe5

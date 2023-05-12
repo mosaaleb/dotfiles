@@ -6,8 +6,15 @@ nnoremap <silent> <leader>tf   :TestFile<CR>
 nnoremap <silent> <leader>s    :TestSuite<CR>
 nnoremap <silent> <leader>t    :TestNearest<CR>
 
-let test#ruby#rails#executable = 'docker-compose exec web bundle exec rspec --format documentation'
-let test#ruby#rspec#executable = 'docker-compose exec web bundle exec rspec --format documentation'
+" let test#ruby#rails#executable = 'docker-compose exec web bundle exec rspec --format documentation'
+" let test#ruby#rspec#executable = 'docker-compose exec web bundle exec rspec --format documentation'
+
+let g:test#ruby#rspec#options = {
+  \ 'nearest': '--format documentation',
+  \ 'file': '--format documentation',
+  \ 'last': '--format documentation',
+  \ 'suite': '--format documentation',
+  \ }
 
 function! ToggleAutoTest()
   if !exists('#AutoTestLast#BufWrite')

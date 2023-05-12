@@ -122,13 +122,7 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-" use ack instead of grep for grepping
-set grepprg=ack\ -s\ -H\ --nopager\ --nocolor\ --nogroup\ --column
-set grepformat=%f:%l:%c:%m,%f:%l:%m
+" Format json (needs jq)
+command! JsonFormat :%!jq .
 
-" grep current word
-noremap <Leader>\ :grep -r <cword><CR>
-" grep template command
-noremap <Leader>x :grep -r "" .<left><left><left>
-" replace template :cdo s/word/another//gc | update
-noremap <Leader>rep :cdo s/\(<c-r>=expand("<cword>")<cr>\)//gc <bar> update<left><left><left><left><left><left><left><left><left><left><left><left>
+" Format from ruby hash
