@@ -1,3 +1,6 @@
+[includeIf "gitdir:~/pennylane/"]
+  path = ~/code/pennylane/.gitconfig
+
 [color]
 	ui = true
 [user]

@@ -1,4 +1,6 @@
 tags
+shetup
+temp.rb
 tags.lock
 tags.temp
 *.rest
@@ -6,3 +8,4 @@ todo.md
 dip.yml
 Session.vim
 node_modules/
+config/projections.json
