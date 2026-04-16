@@ -20,8 +20,21 @@ snippet pretty_print
 puts JSON.pretty_generate($1.as_json)
 endsnippet
 
-snippet chift_integration
-scope :with_integration, lambda { |integration|
-	joins(:chift_consumer).where(chift_consumers: { integration: integration })
-}
+snippet redirect_stream
+flash[:notice] = '$1'
+
+render turbo_stream: turbo_stream.action(
+	:redirect,
+	polymorphic_url([user_role(current_user), $2]),
+)
+endsnippet
+
+snippet sql_string
+$1 = <<~AREL.squish
+AREL
+endsnippet
+
+snippet sql_method
+$1(<<~SQL.squish)
+SQL
 endsnippet

@@ -10,3 +10,90 @@ snippet dirty-tailwindcss
 <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.2.x/dist/typography.min.css" />
 <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/utilities.min.css" />
 endsnippet
+
+snippet errors
+<%= render "form_errors", object: ${1:object_name} %>
+endsnippet
+
+snippet turbo_lazy
+<%=
+	turbo_frame_tag(
+		${1:turbo_id},
+		src: ${2:path},
+		loading: "lazy",
+	) do
+%>
+	<%= render LoaderComponent.new %>
+<% end %>
+endsnippet
+
+snippet svg_tag
+<%= inline_svg_tag "${1:svg_name}", class: "stroke-gray-600 w-8 h-8" %>
+endsnippet
+
+snippet button_component
+<%=
+	render(
+		NewButtonComponent.new(
+			type: "${1:button_type}",
+			as: "${1:button_as}",
+			url: "${2:url}",
+			method: "${3:method}",
+			icon: "${4:icon}",
+			options: "${5:options}",
+			data: "${6:data}",
+		)
+	) do %>
+	"${7:title}"
+<% end %>
+endsnippet
+
+snippet drawer_component
+
+<%=
+	render NewButtonComponent.new(
+		type: "${1:button_type}",
+		icon: "${2:icon}",
+		data: {
+			drawer_placement: "right",
+			drawer_backdrop: "true",
+			drawer_target: "${3:drawer_target}",
+		},
+		options: {
+			type: :button,
+			aria_controls: "${4:drawer_target}",
+		},
+	) do
+%>
+	Create New SKU
+<% end %>
+
+<%=
+	render DrawerComponent.new(
+		drawer_id: "${5:drawer_target}",
+		header: "${6:drawer_header}",
+		subheader: "${7:drawer_subheader}",
+		data: { action: "turbo:submit-end->drawer#submit" },
+	) do |drawer|
+%>
+	<%=
+		turbo_frame_tag(
+			"${8:frame_target}",
+			src: new_manifest_quality_control_path(manifest: @manifest),
+			loading: "lazy"
+		) do
+	%>
+		<%= render LoaderComponent.new %>
+	<% end %>
+
+	<% drawer.with_action_button do %>
+		<%=
+			submit_tag(
+				"Confirm",
+				class: "block bg-teal-500 text-white border border-teal-500 hover:bg-teal-600 rounded-md text-sm px-5 py-2.5 text-center-primary",
+				form: "${9:form_id}",
+			)
+		%>
+	<% end %>
+<% end %>
+endsnippet

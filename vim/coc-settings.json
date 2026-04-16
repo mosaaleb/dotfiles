@@ -1,5 +1,5 @@
 {
-  "coc.preferences.colorSupport": false,
+  "prettier.enable": true,
   "coc.preferences.useQuickfixForLocations": true,
 
   "solargraph.diagnostics": true,
@@ -7,10 +7,12 @@
   "solargraph.hover": true,
   "solargraph.formatting": true,
 
-  "html.filetypes": ["html", "handlebars", "htmldjango", "erb", "javascriptreact"],
-  "html.autoClosingTags": true,
-
-  "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
 
   "diagnostic.infoSign": "…",
   "diagnostic.hintSign": "…",
