@@ -38,7 +38,7 @@ au({ 'CursorHold', 'CursorHoldI' }, {
 -- diagnostics config (virtual_text off)
 vim.diagnostic.config({ virtual_text = false })
 
--- Auto-save replacement for vim-auto-save
+-- Auto-save replacement
 -- Writes the buffer on InsertLeave / TextChanged, silently.
 -- Skipped for typescriptreact (per original config: b:auto_save = 0).
 au({ 'InsertLeave', 'TextChanged' }, {
@@ -51,5 +51,17 @@ au({ 'InsertLeave', 'TextChanged' }, {
     if vim.api.nvim_buf_get_name(args.buf) == '' then return end
     if not bo.modified then return end
     vim.cmd('silent! update')
+  end,
+})
+
+-- vim-obsession replacement
+-- If you opened nvim with `nvim -S <session>`, auto-save the session on exit
+-- so window/buffer layout persists across runs.
+au('VimLeavePre', {
+  group = grp('AutoSession'),
+  callback = function()
+    if vim.v.this_session ~= '' then
+      vim.cmd('mksession! ' .. vim.fn.fnameescape(vim.v.this_session))
+    end
   end,
 })

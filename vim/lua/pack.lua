@@ -13,10 +13,8 @@ vim.pack.add({
 
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
 
-  -- colorschemes
+  -- colorscheme
   { src = 'https://github.com/navarasu/onedark.nvim' },
-  { src = 'https://github.com/Shatur/neovim-ayu' },
-  { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' },
 
   -- quickfix
   { src = 'https://github.com/kevinhwang91/nvim-bqf' },
@@ -31,7 +29,6 @@ vim.pack.add({
   -- snippets: native LSP snippet completions via `vim.snippet` (no engine plugin)
 
   -- tpope utility belt
-  { src = 'https://github.com/tpope/vim-obsession' },
   { src = 'https://github.com/tpope/vim-dispatch' },
   { src = 'https://github.com/tpope/vim-unimpaired' },
   { src = 'https://github.com/tpope/vim-projectionist' },
@@ -47,27 +44,17 @@ vim.pack.add({
   -- split/join
   { src = 'https://github.com/AndrewRadev/splitjoin.vim' },
 
-  -- sql formatter
-  { src = 'https://github.com/vim-scripts/SQLUtilities' },
-  { src = 'https://github.com/vim-scripts/Align' },
-
   -- fuzzy finder
   { src = 'https://github.com/ctrlpvim/ctrlp.vim' },
 
-  -- gitgutter
-  { src = 'https://github.com/airblade/vim-gitgutter' },
+  -- git hunks
+  { src = 'https://github.com/lewis6991/gitsigns.nvim' },
 
   -- statusline
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
 
-  -- tags management
-  { src = 'https://github.com/ludovicchabant/vim-gutentags' },
-
   -- auto pairs
   { src = 'https://github.com/jiangmiao/auto-pairs' },
-
-  -- ruby
-  { src = 'https://github.com/vim-ruby/vim-ruby' },
 
   -- test runner
   { src = 'https://github.com/janko/vim-test' },
@@ -75,7 +62,7 @@ vim.pack.add({
   -- ruby ri documentation
   { src = 'https://github.com/danchoi/ri.vim' },
 
-  -- custom textobjects
+  -- custom textobjects (kept pending mini.ai verification of ao/io on Ruby blocks)
   { src = 'https://github.com/kana/vim-textobj-user' },
   { src = 'https://github.com/nelstrom/vim-textobj-rubyblock' },
 
@@ -84,17 +71,12 @@ vim.pack.add({
   { src = 'https://github.com/christoomey/vim-tmux-runner' },
 
   -- treesitter — pinned to master; main-branch rewrite migration is deferred.
-  -- playground consumes master's `define_modules` API and breaks on main.
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
-  { src = 'https://github.com/nvim-treesitter/playground' },
   { src = 'https://github.com/echasnovski/mini.ai' },
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
 
   -- yaml
   { src = 'https://github.com/cuducos/yaml.nvim' },
-
-  -- figure it out
-  { src = 'https://github.com/eandrju/cellular-automaton.nvim' },
 
   -- rest client
   { src = 'https://github.com/diepm/vim-rest-console' },

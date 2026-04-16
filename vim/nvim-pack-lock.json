@@ -1,24 +1,8 @@
 {
   "plugins": {
-    "Align": {
-      "rev": "787662fe90cd057942bc5b682fd70c87e1a9dd77",
-      "src": "https://github.com/vim-scripts/Align"
-    },
-    "SQLUtilities": {
-      "rev": "566184530da81aa05ae4ac4ba6cf5034292a9b89",
-      "src": "https://github.com/vim-scripts/SQLUtilities"
-    },
     "auto-pairs": {
       "rev": "39f06b873a8449af8ff6a3eee716d3da14d63a76",
       "src": "https://github.com/jiangmiao/auto-pairs"
-    },
-    "catppuccin": {
-      "rev": "426dbebe06b5c69fd846ceb17b42e12f890aedf1",
-      "src": "https://github.com/catppuccin/nvim"
-    },
-    "cellular-automaton.nvim": {
-      "rev": "1606e9d5d04ff254023c3f3c62842d065708d6d3",
-      "src": "https://github.com/eandrju/cellular-automaton.nvim"
     },
     "codeium.vim": {
       "rev": "3c0a4f8a7be75113a6e19be13b7cc37210d6e26a",
@@ -28,6 +12,10 @@
       "rev": "3739dcd638f457559d5a1ae1e398276175694e4b",
       "src": "https://github.com/ctrlpvim/ctrlp.vim"
     },
+    "gitsigns.nvim": {
+      "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "lualine.nvim": {
       "rev": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
@@ -35,10 +23,6 @@
     "mini.ai": {
       "rev": "43eb2074843950a3a25aae56a5f41362ec043bfa",
       "src": "https://github.com/echasnovski/mini.ai"
-    },
-    "neovim-ayu": {
-      "rev": "e5a9f0fa2918d6b5f57c21b3ac014314ee5e41c8",
-      "src": "https://github.com/Shatur/neovim-ayu"
     },
     "none-ls-extras.nvim": {
       "rev": "70ec8815cdf186223af04cc5a15bc8bdface0ef0",
@@ -77,10 +61,6 @@
       "rev": "5820d937d5414baea5f586dc2a3d912a74636e5b",
       "src": "https://github.com/toppair/peek.nvim"
     },
-    "playground": {
-      "rev": "ba48c6a62a280eefb7c85725b0915e021a1a0749",
-      "src": "https://github.com/nvim-treesitter/playground"
-    },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
@@ -113,18 +93,6 @@
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
     },
-    "vim-gitgutter": {
-      "rev": "21c977e8597c468c7dc76001389b0b430d46a4b0",
-      "src": "https://github.com/airblade/vim-gitgutter"
-    },
-    "vim-gutentags": {
-      "rev": "aa47c5e29c37c52176c44e61c780032dfacef3dd",
-      "src": "https://github.com/ludovicchabant/vim-gutentags"
-    },
-    "vim-obsession": {
-      "rev": "ed9dfc7c2cc917ace8b24f4f9f80a91e05614b63",
-      "src": "https://github.com/tpope/vim-obsession"
-    },
     "vim-projectionist": {
       "rev": "5ff7bf79a6ef741036d2038a226bcb5f8b1cd296",
       "src": "https://github.com/tpope/vim-projectionist"
@@ -148,10 +116,6 @@
     "vim-rhubarb": {
       "rev": "5496d7c94581c4c9ad7430357449bb57fc59f501",
       "src": "https://github.com/tpope/vim-rhubarb"
-    },
-    "vim-ruby": {
-      "rev": "bf3a5994ce63796db7b1b04aea92772271f387aa",
-      "src": "https://github.com/vim-ruby/vim-ruby"
     },
     "vim-surround": {
       "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
