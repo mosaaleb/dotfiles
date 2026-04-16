@@ -1,5 +1,4 @@
 tags
-shetup
 temp.rb
 tags.lock
 tags.temp
@@ -8,4 +7,15 @@ todo.md
 dip.yml
 Session.vim
 node_modules/
-config/projections.json
+myscripts/
+.irbrc
+.irb_history
+.projections.json
+bin/sync_from_staging
+.aider*
+progress/
+.claude/
+WorkTree/
+temp/
+claude-execution-plans/
+_bmad/
