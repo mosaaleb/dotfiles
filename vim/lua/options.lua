@@ -56,10 +56,18 @@ opt.tags = 'tags;/'
 -- diagnostics: no virtual_text, hover updatetime
 opt.updatetime = 250
 
+-- completion popup: always show a menu, don't auto-select,
+-- show docs popup alongside the menu
+opt.completeopt = { 'menu', 'menuone', 'noselect', 'popup' }
+
+-- cmdline completion: popup menu instead of statusline bar (for `:`, `/`, `?`)
+opt.wildoptions = 'pum'
+opt.wildmode = 'longest:full,full'
+
 -- enable built-in matchit
 vim.cmd('runtime macros/matchit.vim')
 
--- treat mdx as markdown
+-- treat mdx files as markdown
 vim.filetype.add({
   extension = {
     mdx = 'markdown',

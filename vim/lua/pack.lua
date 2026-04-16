@@ -27,17 +27,8 @@ vim.pack.add({
   { src = 'https://github.com/nvimtools/none-ls-extras.nvim' },
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
 
-  -- completion
-  { src = 'https://github.com/hrsh7th/cmp-nvim-lsp' },
-  { src = 'https://github.com/hrsh7th/cmp-buffer' },
-  { src = 'https://github.com/hrsh7th/cmp-path' },
-  { src = 'https://github.com/hrsh7th/cmp-cmdline' },
-  { src = 'https://github.com/hrsh7th/nvim-cmp' },
-  { src = 'https://github.com/quangnguyen30192/cmp-nvim-ultisnips' },
-
-  -- snippets
-  { src = 'https://github.com/SirVer/ultisnips' },
-  { src = 'https://github.com/honza/vim-snippets' },
+  -- completion: native `vim.lsp.completion.enable()` (see lua/plugins/lsp.lua)
+  -- snippets: native LSP snippet completions via `vim.snippet` (no engine plugin)
 
   -- tpope utility belt
   { src = 'https://github.com/tpope/vim-obsession' },
