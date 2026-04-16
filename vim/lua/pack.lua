@@ -57,8 +57,8 @@ vim.pack.add({
   -- statusline
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
 
-  -- auto pairs
-  { src = 'https://github.com/jiangmiao/auto-pairs' },
+  -- auto pairs (via echasnovski/mini.pairs — treesitter-aware)
+  { src = 'https://github.com/echasnovski/mini.pairs' },
 
   -- test runner
   { src = 'https://github.com/janko/vim-test' },
