@@ -38,8 +38,12 @@ vim.pack.add({
   { src = 'https://github.com/tpope/vim-bundler' },
   { src = 'https://github.com/tpope/vim-eunuch' },
   { src = 'https://github.com/tpope/vim-rails' },
-  { src = 'https://github.com/tpope/vim-surround' },
-  { src = 'https://github.com/tpope/vim-repeat' },
+  -- surround: using echasnovski/mini.surround (lua, treesitter-aware).
+  -- See lua/plugins/surround.lua for mappings (ys/cs/ds preserved).
+  -- vim-repeat removed along with vim-surround; mini.surround has built-in
+  -- dot-repeat. Plugins that relied on vim-repeat (splitjoin gS/gJ, a few
+  -- tpope ones) will lose `.` repeatability for their actions — re-add
+  -- `tpope/vim-repeat` if that hurts.
 
   -- split/join
   { src = 'https://github.com/AndrewRadev/splitjoin.vim' },
@@ -73,6 +77,7 @@ vim.pack.add({
   -- treesitter — pinned to master; main-branch rewrite migration is deferred.
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
   { src = 'https://github.com/echasnovski/mini.ai' },
+  { src = 'https://github.com/echasnovski/mini.surround' },
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
 
   -- yaml

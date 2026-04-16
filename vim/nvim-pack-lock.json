@@ -24,6 +24,10 @@
       "rev": "43eb2074843950a3a25aae56a5f41362ec043bfa",
       "src": "https://github.com/echasnovski/mini.ai"
     },
+    "mini.surround": {
+      "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
+      "src": "https://github.com/echasnovski/mini.surround"
+    },
     "none-ls-extras.nvim": {
       "rev": "70ec8815cdf186223af04cc5a15bc8bdface0ef0",
       "src": "https://github.com/nvimtools/none-ls-extras.nvim"
@@ -105,10 +109,6 @@
       "rev": "af4ee966f5479fa89e60be067b6183f6addf9e4e",
       "src": "https://github.com/tpope/vim-rake"
     },
-    "vim-repeat": {
-      "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
-      "src": "https://github.com/tpope/vim-repeat"
-    },
     "vim-rest-console": {
       "rev": "7b407f47185468d1b57a8bd71cdd66c9a99359b2",
       "src": "https://github.com/diepm/vim-rest-console"
@@ -116,10 +116,6 @@
     "vim-rhubarb": {
       "rev": "5496d7c94581c4c9ad7430357449bb57fc59f501",
       "src": "https://github.com/tpope/vim-rhubarb"
-    },
-    "vim-surround": {
-      "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
-      "src": "https://github.com/tpope/vim-surround"
     },
     "vim-test": {
       "rev": "bc0e94059de40641d163516a83c63bc45c716acf",
