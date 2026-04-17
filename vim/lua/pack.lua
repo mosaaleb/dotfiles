@@ -54,8 +54,8 @@ vim.pack.add({
   -- git hunks
   { src = 'https://github.com/lewis6991/gitsigns.nvim' },
 
-  -- statusline
-  { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  -- statusline — hand-rolled via native `vim.o.statusline` in
+  -- lua/plugins/statusline.lua. nvim-web-devicons still used for file icons.
 
   -- auto pairs (via echasnovski/mini.pairs — treesitter-aware)
   { src = 'https://github.com/echasnovski/mini.pairs' },
@@ -74,10 +74,13 @@ vim.pack.add({
   { src = 'https://github.com/christoomey/vim-tmux-navigator' },
   { src = 'https://github.com/christoomey/vim-tmux-runner' },
 
-  -- treesitter — pinned to master; main-branch rewrite migration is deferred.
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'master' },
+  -- treesitter — on `main` branch (the rewrite). Provides parsers + queries;
+  -- highlighting is done by nvim core via `vim.treesitter.start()`.
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
   { src = 'https://github.com/echasnovski/mini.ai' },
   { src = 'https://github.com/echasnovski/mini.surround' },
+  -- nvim-treesitter-textobjects kept for its query files that mini.ai reads
+  -- via gen_spec.treesitter (@function.outer, @class.outer, @block.outer, etc).
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
 
   -- yaml

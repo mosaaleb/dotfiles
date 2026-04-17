@@ -1,58 +1,40 @@
-require('nvim-treesitter.configs').setup({
-  ensure_installed = {
-    'ruby', 'embedded_template', 'javascript', 'typescript', 'tsx',
-    'html', 'css', 'scss', 'json', 'jsonc', 'yaml', 'toml',
-    'lua', 'vim', 'vimdoc', 'bash', 'sql', 'regex', 'query',
-    'markdown', 'markdown_inline', 'gitcommit', 'gitignore', 'diff',
-  },
-  auto_install = true,
-  highlight = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = 'gnn',
-      node_incremental = 'grn',
-      scope_incremental = 'grc',
-      node_decremental = 'grm',
-    },
-  },
+-- nvim-treesitter (main branch) — parsers + queries only.
+-- Highlighting is done by nvim core via `vim.treesitter.start()`.
+-- The markdown injection workaround from master is unnecessary here: main
+-- drops the custom `#set-lang-from-info-string!` directive that crashed
+-- nvim 0.12's core injection engine.
+
+-- 'jsonc' is not a distinct parser on main (jsonc uses the json parser).
+local parsers = {
+  'ruby', 'embedded_template', 'javascript', 'typescript', 'tsx',
+  'html', 'css', 'scss', 'json', 'yaml', 'toml',
+  'lua', 'vim', 'vimdoc', 'bash', 'sql', 'regex', 'query',
+  'markdown', 'markdown_inline', 'gitcommit', 'gitignore', 'diff',
+}
+
+-- Install (idempotent — skips parsers already present).
+require('nvim-treesitter').install(parsers)
+
+-- Start treesitter highlight for any filetype whose language has a parser.
+-- Replaces master's `highlight = { enable = true }` module.
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('TSHighlight', { clear = true }),
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+    local lang = vim.treesitter.language.get_lang(ft)
+    if lang and pcall(vim.treesitter.language.add, lang) then
+      pcall(vim.treesitter.start, args.buf, lang)
+    end
+  end,
 })
 
--- Override the shipped markdown injections query.
--- nvim-treesitter's version uses the custom directive `#set-lang-from-info-string!`
--- which nvim 0.12 core doesn't understand, causing a `nil:range()` crash.
--- This override uses the standard `@injection.language` capture instead.
-vim.treesitter.query.set('markdown', 'injections', [[
-(fenced_code_block
-  (info_string
-    (language) @injection.language)
-  (code_fence_content) @injection.content)
-
-((html_block) @injection.content
-  (#set! injection.language "html")
-  (#set! injection.combined)
-  (#set! injection.include-children))
-
-((minus_metadata) @injection.content
-  (#set! injection.language "yaml")
-  (#offset! @injection.content 1 0 -1 0)
-  (#set! injection.include-children))
-
-((plus_metadata) @injection.content
-  (#set! injection.language "toml")
-  (#offset! @injection.content 1 0 -1 0)
-  (#set! injection.include-children))
-
-([(inline) (pipe_table_cell)] @injection.content
-  (#set! injection.language "markdown_inline"))
-]])
-
+-- mini.ai — treesitter-aware text objects.
 local ai = require('mini.ai')
 ai.setup({
   n_lines = 500,
   custom_textobjects = {
     f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-    c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+    c = ai.gen_spec.treesitter({ a = '@class.outer',    i = '@class.inner' }),
     o = ai.gen_spec.treesitter({
       a = { '@block.outer', '@conditional.outer', '@loop.outer' },
       i = { '@block.inner', '@conditional.inner', '@loop.inner' },
@@ -61,16 +43,13 @@ ai.setup({
   },
 })
 
+-- Movement keys (buffer-local — override any ftplugin defaults).
 local function move(side, id, method)
   return function()
     ai.move_cursor(side, 'a', id, { search_method = method, n_lines = 500 })
   end
 end
 
--- vim-ruby's ftplugin sets buffer-local ]]/[[ using `searchsyn()` which
--- requires legacy syntax groups that don't exist under treesitter highlight.
--- Setting mini.ai keymaps via a FileType autocmd makes them buffer-local
--- and ensures they override the ftplugin mappings.
 local function setup_movement_keys(bufnr)
   local opts = function(desc) return { buffer = bufnr, desc = desc } end
   local mode = { 'n', 'x', 'o' }
