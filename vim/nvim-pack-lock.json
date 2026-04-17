@@ -117,14 +117,6 @@
       "rev": "bc0e94059de40641d163516a83c63bc45c716acf",
       "src": "https://github.com/janko/vim-test"
     },
-    "vim-textobj-rubyblock": {
-      "rev": "2b882e2cc2599078f75e6e88cd268192bf7b27bf",
-      "src": "https://github.com/nelstrom/vim-textobj-rubyblock"
-    },
-    "vim-textobj-user": {
-      "rev": "41a675ddbeefd6a93664a4dc52f302fe3086a933",
-      "src": "https://github.com/kana/vim-textobj-user"
-    },
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
       "src": "https://github.com/christoomey/vim-tmux-navigator"

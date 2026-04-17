@@ -1,42 +1,43 @@
 -- Native statusline — replaces lualine.nvim.
--- Same information: mode, branch, diagnostics, filename, filetype, progress,
--- aider background indicator. Plus per-filetype variants for fugitive,
--- dirvish, and quickfix buffers.
+-- Same information: mode, branch, diagnostics, file icon + name, fileformat,
+-- filetype, progress. Plus per-filetype variants for fugitive, dirvish, and
+-- quickfix buffers.
 --
--- Architecture: `vim.o.statusline` is a format string. Each component lives
--- in the `M` module table and is called via `v:lua.require'plugins.statusline'.<fn>()`.
+-- Components live in `SL` (stored on _G so statusline format strings can
+-- call them as `v:lua.SL.mode()` — avoids nested-quote parse errors that
+-- occur with the `v:lua.require"mod".fn()` shorthand).
 
-local M = {}
+local SL = {}
+_G.SL = SL
 
 -- ─── Mode ─────────────────────────────────────────────────────────────────
 
--- Map vim's one-or-two-char mode() output to a readable label + hl group.
 local mode_map = {
-  n      = { 'NORMAL',  'StMode'       },
-  i      = { 'INSERT',  'StModeInsert' },
-  v      = { 'VISUAL',  'StModeVisual' },
-  V      = { 'V-LINE',  'StModeVisual' },
+  n       = { 'NORMAL',  'StMode'       },
+  i       = { 'INSERT',  'StModeInsert' },
+  v       = { 'VISUAL',  'StModeVisual' },
+  V       = { 'V-LINE',  'StModeVisual' },
   ['\22'] = { 'V-BLOCK', 'StModeVisual' }, -- Ctrl-V
-  c      = { 'COMMAND', 'StModeCmd'    },
-  s      = { 'SELECT',  'StModeVisual' },
-  S      = { 'S-LINE',  'StModeVisual' },
-  R      = { 'REPLACE', 'StModeCmd'    },
-  r      = { 'PROMPT',  'StModeCmd'    },
-  t      = { 'TERM',    'StModeCmd'    },
+  c       = { 'COMMAND', 'StModeCmd'    },
+  s       = { 'SELECT',  'StModeVisual' },
+  S       = { 'S-LINE',  'StModeVisual' },
+  R       = { 'REPLACE', 'StModeCmd'    },
+  r       = { 'PROMPT',  'StModeCmd'    },
+  t       = { 'TERM',    'StModeCmd'    },
 }
 
-function M.mode()
+function SL.mode()
   local m = vim.fn.mode()
   local info = mode_map[m] or { m, 'StMode' }
   return string.format('%%#%s# %s %%*', info[2], info[1])
 end
 
--- ─── Git branch ────────────────────────────────────────────────────────────
+-- ─── Git branch (via fugitive) ─────────────────────────────────────────────
 
-function M.branch()
+function SL.branch()
   local head = vim.fn.exists('*FugitiveHead') == 1 and vim.fn.FugitiveHead() or ''
   if head == '' then return '' end
-  -- match lualine's old "sub(5,8)" treatment — show first 4 chars after 4th
+  -- match lualine's old "sub(5,8)" treatment — show chars 5..8
   local short = head:sub(5, 8)
   if short == '' then short = head end
   return string.format(' %%#StBranch# %s %%*', short)
@@ -44,7 +45,7 @@ end
 
 -- ─── Diagnostics ───────────────────────────────────────────────────────────
 
-function M.diagnostics()
+function SL.diagnostics()
   if #vim.lsp.get_clients({ bufnr = 0 }) == 0 then return '' end
   local counts = vim.diagnostic.count(0)
   local parts = {}
@@ -65,11 +66,11 @@ function M.diagnostics()
   return ' ' .. table.concat(parts, ' ') .. ' %*'
 end
 
--- ─── File icon + name ──────────────────────────────────────────────────────
+-- ─── File icon ─────────────────────────────────────────────────────────────
 
 local devicons_ok, devicons = pcall(require, 'nvim-web-devicons')
 
-function M.file_icon()
+function SL.file_icon()
   if not devicons_ok then return '' end
   local name = vim.fn.expand('%:t')
   local ext  = vim.fn.expand('%:e')
@@ -78,48 +79,35 @@ function M.file_icon()
   return string.format('%%#%s#%s %%*', hl or '', icon)
 end
 
--- ─── Aider background indicator ────────────────────────────────────────────
-
-function M.aider()
-  local status = _G.aider_background_status
-  if status == 'idle' then
-    return '%#StAiderIdle# A %*'
-  elseif status == 'working' then
-    return '%#StAiderBusy# A %*'
-  end
-  return ''
-end
-
 -- ─── Statusline format strings ─────────────────────────────────────────────
 
--- Default — most buffers. Matches lualine's layout:
---   [mode] [branch] [diagnostics] [filename (relative)] | [fileformat] [filetype] [progress] [aider]
+-- Default — most buffers.
+-- Layout: [mode][branch][diagnostics] [icon][filename][mod/ro]  [ff] [ft] [%]
 local default = table.concat({
-  '%{%v:lua.require"plugins.statusline".mode()%}',
-  '%{%v:lua.require"plugins.statusline".branch()%}',
-  '%{%v:lua.require"plugins.statusline".diagnostics()%}',
+  '%{%v:lua.SL.mode()%}',
+  '%{%v:lua.SL.branch()%}',
+  '%{%v:lua.SL.diagnostics()%}',
   ' ',
-  '%{%v:lua.require"plugins.statusline".file_icon()%}',
+  '%{%v:lua.SL.file_icon()%}',
   '%f',
-  '%m%r',                           -- [+] modified, [RO] readonly
-  '%=',                             -- right-align pivot
-  '%{&ff} ',                        -- fileformat (unix/dos)
-  '%y ',                            -- filetype (in brackets)
-  '%p%% ',                          -- percentage through file
-  '%{%v:lua.require"plugins.statusline".aider()%}',
+  '%m%r',                             -- [+] modified, [RO] readonly
+  '%=',                               -- right-align pivot
+  '%{&ff} ',                          -- fileformat (unix/dos)
+  '%y ',                              -- filetype (in brackets)
+  '%p%% ',                            -- percentage through file
 })
 
--- Fugitive buffer — mimic lualine's fugitive extension.
-local fugitive = '%{%v:lua.require"plugins.statusline".branch()%} %f'
+-- Fugitive buffer.
+local fugitive = '%{%v:lua.SL.branch()%} %f'
 
 -- Dirvish buffer — mode + branch + dir name.
 local dirvish = table.concat({
-  '%{%v:lua.require"plugins.statusline".mode()%}',
-  '%{%v:lua.require"plugins.statusline".branch()%}',
+  '%{%v:lua.SL.mode()%}',
+  '%{%v:lua.SL.branch()%}',
   ' %f',
 })
 
--- Quickfix buffer — title + count.
+-- Quickfix buffer.
 local quickfix = ' QuickFix   %=%-15(%l,%c%V%) %P'
 
 -- ─── Highlights ─────────────────────────────────────────────────────────────
@@ -131,12 +119,9 @@ local function set_highlights()
   hl(0, 'StModeVisual', { fg = '#282c34', bg = '#c678dd', bold = true })
   hl(0, 'StModeCmd',    { fg = '#282c34', bg = '#e5c07b', bold = true })
   hl(0, 'StBranch',     { fg = '#ffffff', bg = '#3a3a3a', bold = true })
-  hl(0, 'StAiderIdle',  { fg = '#8FBCBB' })
-  hl(0, 'StAiderBusy',  { fg = '#BF616A' })
 end
 set_highlights()
 
--- Re-apply highlights after colorscheme switch.
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = vim.api.nvim_create_augroup('StatuslineColors', { clear = true }),
   callback = set_highlights,
@@ -144,7 +129,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- ─── Apply ─────────────────────────────────────────────────────────────────
 
-vim.opt.laststatus = 2                           -- always show statusline
+vim.opt.laststatus = 2                             -- always show statusline
 vim.opt.statusline = default
 
 -- Per-filetype overrides.
@@ -162,4 +147,4 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-return M
+return SL

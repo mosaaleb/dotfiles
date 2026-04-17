@@ -66,9 +66,8 @@ vim.pack.add({
   -- ruby ri documentation
   { src = 'https://github.com/danchoi/ri.vim' },
 
-  -- custom textobjects (kept pending mini.ai verification of ao/io on Ruby blocks)
-  { src = 'https://github.com/kana/vim-textobj-user' },
-  { src = 'https://github.com/nelstrom/vim-textobj-rubyblock' },
+  -- text objects: via mini.ai (treesitter-aware). `ao`/`io` covers Ruby blocks,
+  -- `af`/`if` functions, `ac`/`ic` classes, `aa`/`ia` parameters.
 
   -- tmux
   { src = 'https://github.com/christoomey/vim-tmux-navigator' },
