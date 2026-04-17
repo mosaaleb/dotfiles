@@ -8,9 +8,7 @@
 
 vim.pack.add({
   { src = 'https://github.com/Exafunction/codeium.vim' },
-
   { src = 'https://github.com/justinmk/vim-dirvish' },
-
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
 
   -- colorscheme
@@ -19,13 +17,14 @@ vim.pack.add({
   -- quickfix
   { src = 'https://github.com/kevinhwang91/nvim-bqf' },
 
-  -- lsp
+  -- lsp: native `vim.lsp.config` + `vim.lsp.enable` (see lua/core/lsp.lua).
+  -- nvim-lspconfig is kept purely as a config-data provider — it ships
+  -- `lsp/*.lua` files on runtimepath that `vim.lsp.enable()` reads natively.
+  -- No `require('lspconfig').setup{}` calls — pure native API.
+  -- Our own `lsp/<name>.lua` takes precedence if we need to override.
   { src = 'https://github.com/neovim/nvim-lspconfig' },
-  { src = 'https://github.com/nvimtools/none-ls.nvim' },
-  { src = 'https://github.com/nvimtools/none-ls-extras.nvim' },
-  { src = 'https://github.com/nvim-lua/plenary.nvim' },
 
-  -- completion: native `vim.lsp.completion.enable()` (see lua/plugins/lsp.lua)
+  -- completion: native `vim.lsp.completion.enable()` (see lua/core/lsp.lua)
   -- snippets: native LSP snippet completions via `vim.snippet` (no engine plugin)
 
   -- tpope utility belt
@@ -38,15 +37,6 @@ vim.pack.add({
   { src = 'https://github.com/tpope/vim-bundler' },
   { src = 'https://github.com/tpope/vim-eunuch' },
   { src = 'https://github.com/tpope/vim-rails' },
-  -- surround: using echasnovski/mini.surround (lua, treesitter-aware).
-  -- See lua/plugins/surround.lua for mappings (ys/cs/ds preserved).
-  -- vim-repeat removed along with vim-surround; mini.surround has built-in
-  -- dot-repeat. Plugins that relied on vim-repeat (splitjoin gS/gJ, a few
-  -- tpope ones) will lose `.` repeatability for their actions — re-add
-  -- `tpope/vim-repeat` if that hurts.
-
-  -- split/join
-  { src = 'https://github.com/AndrewRadev/splitjoin.vim' },
 
   -- fuzzy finder
   { src = 'https://github.com/ctrlpvim/ctrlp.vim' },
@@ -54,20 +44,19 @@ vim.pack.add({
   -- git hunks
   { src = 'https://github.com/lewis6991/gitsigns.nvim' },
 
-  -- statusline — hand-rolled via native `vim.o.statusline` in
-  -- lua/plugins/statusline.lua. nvim-web-devicons still used for file icons.
-
   -- auto pairs (via echasnovski/mini.pairs — treesitter-aware)
   { src = 'https://github.com/echasnovski/mini.pairs' },
+  -- text objects: via mini.ai (treesitter-aware). `ao`/`io` covers Ruby blocks,
+  -- `af`/`if` functions, `ac`/`ic` classes, `aa`/`ia` parameters.
+  { src = 'https://github.com/echasnovski/mini.ai' },
+
+  -- surround: using echasnovski/mini.surround (lua, treesitter-aware).
+  -- See lua/plugins/surround.lua for mappings (ys/cs/ds preserved).
+  { src = 'https://github.com/echasnovski/mini.surround' },
 
   -- test runner
   { src = 'https://github.com/janko/vim-test' },
 
-  -- ruby ri documentation
-  { src = 'https://github.com/danchoi/ri.vim' },
-
-  -- text objects: via mini.ai (treesitter-aware). `ao`/`io` covers Ruby blocks,
-  -- `af`/`if` functions, `ac`/`ic` classes, `aa`/`ia` parameters.
 
   -- tmux
   { src = 'https://github.com/christoomey/vim-tmux-navigator' },
@@ -75,18 +64,14 @@ vim.pack.add({
 
   -- treesitter — on `main` branch (the rewrite). Provides parsers + queries;
   -- highlighting is done by nvim core via `vim.treesitter.start()`.
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
-  { src = 'https://github.com/echasnovski/mini.ai' },
-  { src = 'https://github.com/echasnovski/mini.surround' },
   -- nvim-treesitter-textobjects kept for its query files that mini.ai reads
   -- via gen_spec.treesitter (@function.outer, @class.outer, @block.outer, etc).
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
+
 
   -- yaml
   { src = 'https://github.com/cuducos/yaml.nvim' },
-
-  -- rest client
-  { src = 'https://github.com/diepm/vim-rest-console' },
 
   -- markdown preview
   { src = 'https://github.com/toppair/peek.nvim' },

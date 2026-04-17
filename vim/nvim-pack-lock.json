@@ -24,14 +24,6 @@
       "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
       "src": "https://github.com/echasnovski/mini.surround"
     },
-    "none-ls-extras.nvim": {
-      "rev": "70ec8815cdf186223af04cc5a15bc8bdface0ef0",
-      "src": "https://github.com/nvimtools/none-ls-extras.nvim"
-    },
-    "none-ls.nvim": {
-      "rev": "899e93f9f10251d7220b188eba1b837c0ba27927",
-      "src": "https://github.com/nvimtools/none-ls.nvim"
-    },
     "nvim-bqf": {
       "rev": "c282a62bec6c0621a1ef5132aa3f4c9fc4dcc2c7",
       "src": "https://github.com/kevinhwang91/nvim-bqf"
@@ -60,18 +52,6 @@
     "peek.nvim": {
       "rev": "5820d937d5414baea5f586dc2a3d912a74636e5b",
       "src": "https://github.com/toppair/peek.nvim"
-    },
-    "plenary.nvim": {
-      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
-      "src": "https://github.com/nvim-lua/plenary.nvim"
-    },
-    "ri.vim": {
-      "rev": "6a4045e7e8a62ce434d6083cd6732c4bce20523d",
-      "src": "https://github.com/danchoi/ri.vim"
-    },
-    "splitjoin.vim": {
-      "rev": "8c4c87e72d20d8d5eee8b29c320eb61767578841",
-      "src": "https://github.com/AndrewRadev/splitjoin.vim"
     },
     "vim-bundler": {
       "rev": "64a448589e5e238cce0030d08984368ddc3851ac",
@@ -104,10 +84,6 @@
     "vim-rake": {
       "rev": "af4ee966f5479fa89e60be067b6183f6addf9e4e",
       "src": "https://github.com/tpope/vim-rake"
-    },
-    "vim-rest-console": {
-      "rev": "7b407f47185468d1b57a8bd71cdd66c9a99359b2",
-      "src": "https://github.com/diepm/vim-rest-console"
     },
     "vim-rhubarb": {
       "rev": "5496d7c94581c4c9ad7430357449bb57fc59f501",
