@@ -56,6 +56,10 @@ opt.tags = 'tags;/'
 -- diagnostics: no virtual_text, hover updatetime
 opt.updatetime = 250
 
+-- floating window / popup-menu transparency (no-op on non-float windows)
+opt.winblend = 10
+opt.pumblend = 10
+
 -- completion popup: always show a menu, don't auto-select,
 -- show docs popup alongside the menu
 opt.completeopt = { 'menu', 'menuone', 'noselect', 'popup' }
