@@ -47,7 +47,6 @@ au({ 'InsertLeave', 'TextChanged' }, {
     local bo = vim.bo[args.buf]
     if not bo.modifiable then return end
     if bo.buftype ~= '' then return end
-    if bo.filetype == 'typescriptreact' then return end
     if vim.api.nvim_buf_get_name(args.buf) == '' then return end
     if not bo.modified then return end
     vim.cmd('silent! update')
