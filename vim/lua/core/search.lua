@@ -6,11 +6,12 @@ end
 
 local map = vim.keymap.set
 
--- grep current word
-map('', '<Leader>\\', ':grep -r <cword><CR>')
+-- grep current word (ripgrep recurses by default — no -r flag; -r in rg means
+-- "replacement text" and would swallow the search term)
+map('', '<Leader>\\', ':grep <cword><CR>')
 
 -- grep template command
-map('', '<Leader>x', ':grep -r "" .<Left><Left><Left>')
+map('', '<Leader>x', ':grep "" .<Left><Left><Left>')
 
 -- replace template :cdo s/word/another//gc | update
 map('', '<Leader>rep',
