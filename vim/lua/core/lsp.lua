@@ -3,9 +3,10 @@
 -- automatically by vim.lsp.enable(name).
 
 -- Global defaults applied to every server (merged before the per-server file).
+-- `capabilities` is set by blink.cmp (see lua/plugins/cmp.lua) — it extends
+-- the nvim defaults with richer completion/snippet support.
 vim.lsp.config('*', {
   root_markers = { '.git' },
-  capabilities = vim.lsp.protocol.make_client_capabilities(),
 })
 
 vim.lsp.enable({
@@ -31,21 +32,51 @@ vim.lsp.enable({
   'yamlls',             -- yaml-language-server (redhat)
 })
 
--- Diagnostic UI
+-- Diagnostic UI — signs in the gutter + float on CursorHold. No inline noise.
 vim.diagnostic.config({
-  virtual_text = false,                         -- inline one-liners off
-  virtual_lines = { current_line = true },      -- full diagnostic on cursor line
+  virtual_text = false,
+  virtual_lines = false,
   severity_sort = true,
-  float = { border = 'rounded' },
+  float = {
+    border = 'rounded',
+    source = true,
+    header = '',
+    max_width = 80,
+    focusable = false,
+    prefix = function(diagnostic)
+      local icons = {
+        [vim.diagnostic.severity.ERROR] = { '\u{f057}  ', 'DiagnosticError' },
+        [vim.diagnostic.severity.WARN]  = { '\u{f071}  ', 'DiagnosticWarn' },
+        [vim.diagnostic.severity.INFO]  = { '\u{f05a}  ', 'DiagnosticInfo' },
+        [vim.diagnostic.severity.HINT]  = { '\u{f0eb}  ', 'DiagnosticHint' },
+      }
+      local item = icons[diagnostic.severity]
+      return item[1], item[2]
+    end,
+  },
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = 'E',
-      [vim.diagnostic.severity.WARN]  = 'W',
-      [vim.diagnostic.severity.INFO]  = 'I',
-      [vim.diagnostic.severity.HINT]  = 'H',
+      [vim.diagnostic.severity.ERROR] = '\u{f057}',
+      [vim.diagnostic.severity.WARN]  = '\u{f071}',
+      [vim.diagnostic.severity.INFO]  = '\u{f05a}',
+      [vim.diagnostic.severity.HINT]  = '\u{f0eb}',
     },
   },
 })
+
+-- Auto-open float for diagnostics under cursor (requires updatetime; set in options.lua).
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  group = vim.api.nvim_create_augroup('UserDiagnosticFloat', { clear = true }),
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false, scope = 'cursor' })
+  end,
+})
+
+-- Diagnostic navigation: [g prev, ]g next (nvim's native ]d/[d still work).
+vim.keymap.set('n', ']g', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+  { desc = 'Next diagnostic' })
+vim.keymap.set('n', '[g', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+  { desc = 'Prev diagnostic' })
 
 -- Per-buffer LSP setup.
 -- Keymaps nvim 0.11+ already provides out of the box (DO NOT remap):
@@ -66,10 +97,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if not client then return end
 
-    -- Native autocompletion (0.11+). Triggers on LSP trigger chars.
-    if client:supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
-    end
+    -- Completion is handled by blink.cmp (see lua/plugins/cmp.lua) — no
+    -- need to call vim.lsp.completion.enable() here.
 
     -- Inlay hints (0.10+). Toggle with <leader>ih.
     if client:supports_method('textDocument/inlayHint') then
@@ -89,16 +118,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- Completion-menu keymaps: when the popup is visible, remap to native
--- next/prev/confirm. When no popup, keys fall through to their normal
--- insert-mode behavior.
-local function map_when_pum(key, action)
-  vim.keymap.set('i', key, function()
-    return vim.fn.pumvisible() == 1 and action or key
-  end, { expr = true })
-end
-
-map_when_pum('<C-j>', '<C-n>')  -- next item
-map_when_pum('<C-k>', '<C-p>')  -- prev item
-map_when_pum('<Tab>',  '<C-y>') -- confirm selection
--- <C-e> is native cancel in insert-mode popup — no remap needed.
+-- Completion keymaps live in lua/plugins/cmp.lua (owned by blink.cmp).

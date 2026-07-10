@@ -5,6 +5,7 @@ require('pack')
 
 require('core.search')
 require('core.statusline')
+require('plugins.cmp')  -- blink.cmp: must run before core.lsp so LSP servers pick up its capabilities
 require('core.lsp')
 
 require('plugins.theme')
@@ -19,4 +20,4 @@ require('plugins.vim_test')
 require('plugins.tmux')
 require('plugins.git')
 require('plugins.seeingisbelieving')
-require('plugins.peek')
+require('plugins.markdown_preview')

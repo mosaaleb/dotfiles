@@ -1,8 +1,9 @@
 {
   "plugins": {
-    "codeium.vim": {
-      "rev": "3c0a4f8a7be75113a6e19be13b7cc37210d6e26a",
-      "src": "https://github.com/Exafunction/codeium.vim"
+    "blink.cmp": {
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
     },
     "ctrlp.vim": {
       "rev": "3739dcd638f457559d5a1ae1e398276175694e4b",
@@ -48,10 +49,6 @@
     "onedark.nvim": {
       "rev": "df4792accde9db0043121f32628bcf8e645d9aea",
       "src": "https://github.com/navarasu/onedark.nvim"
-    },
-    "peek.nvim": {
-      "rev": "5820d937d5414baea5f586dc2a3d912a74636e5b",
-      "src": "https://github.com/toppair/peek.nvim"
     },
     "vim-bundler": {
       "rev": "64a448589e5e238cce0030d08984368ddc3851ac",
