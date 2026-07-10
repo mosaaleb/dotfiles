@@ -42,3 +42,10 @@ require('mini.surround').setup({
 -- mini.surround's default `s` (which would shadow native `s` substitute) is
 -- not remapped above — but we set `s` as a prefix key for `sf`/`sh` only, so
 -- `s` alone still works as native substitute.
+
+-- Drop the visual-mode `ys` mapping — it shadows `y` in visual mode, causing
+-- a `timeoutlen`-long delay every time you yank a selection. Use `S` for
+-- visual-mode surround instead (matches tpope/vim-surround behavior).
+vim.keymap.del('x', 'ys')
+vim.keymap.set('x', 'S', ':<C-u>lua MiniSurround.add("visual")<CR>',
+  { silent = true, desc = 'Add surround to selection' })
